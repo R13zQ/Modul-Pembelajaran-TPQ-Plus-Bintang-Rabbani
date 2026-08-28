@@ -1,0 +1,157 @@
+{
+  "level_id": 1,
+  "level_title": "IQRO' 1",
+  "topic": {
+    "latin": "JA HA KHO",
+    "arab": "جَ حَ خَ"
+  },
+  "instruction_id": "",
+  "instruction_en": "",
+  "instruction_ar": "القراءة المباشرة أ - ب وهكذا. لا حاجة للتهجئة. اقرأ بصوت قصير.",
+  "content": [
+    {
+      "order_id": 1,
+      "position": {
+        "row": 1,
+        "col": 1
+      },
+      "latin": "KHO KHO KHO",
+      "arabic": "خَ خَ خَ"
+    },
+    {
+      "order_id": 2,
+      "position": {
+        "row": 2,
+        "col": 1
+      },
+      "latin": "JA A KHO",
+      "arabic": "جَ أَ خَ"
+    },
+    {
+      "order_id": 3,
+      "position": {
+        "row": 3,
+        "col": 1
+      },
+      "latin": "JA A KHO",
+      "arabic": "جَ أَ خَ"
+    },
+    {
+      "order_id": 4,
+      "position": {
+        "row": 3,
+        "col": 2
+      },
+      "latin": "JA TSA KHO",
+      "arabic": "جَ ثَ خَ"
+    },
+    {
+      "order_id": 5,
+      "position": {
+        "row": 3,
+        "col": 3
+      },
+      "latin": "HA TSA KHO",
+      "arabic": "حَ ثَ خَ"
+    },
+    {
+      "order_id": 6,
+      "position": {
+        "row": 3,
+        "col": 4
+      },
+      "latin": "HA BA KHO",
+      "arabic": "حَ بَ خَ"
+    },
+    {
+      "order_id": 7,
+      "position": {
+        "row": 4,
+        "col": 1
+      },
+      "latin": "JA HA KHO",
+      "arabic": "جَ حَ خَ"
+    },
+    {
+      "order_id": 8,
+      "position": {
+        "row": 5,
+        "col": 1
+      },
+      "latin": "TA HA KHO",
+      "arabic": "تَ حَ خَ"
+    },
+    {
+      "order_id": 9,
+      "position": {
+        "row": 5,
+        "col": 2
+      },
+      "latin": "TA JA KHO",
+      "arabic": "تَ جَ خَ"
+    },
+    {
+      "order_id": 10,
+      "position": {
+        "row": 5,
+        "col": 3
+      },
+      "latin": "JA HA KHO",
+      "arabic": "جَ حَ خَ"
+    },
+    {
+      "order_id": 11,
+      "position": {
+        "row": 5,
+        "col": 4
+      },
+      "latin": "JA HA KHO",
+      "arabic": "جَ حَ خَ"
+    },
+    {
+      "order_id": 12,
+      "position": {
+        "row": 6,
+        "col": 1
+      },
+      "latin": "JA HA KHO",
+      "arabic": "جَ حَ خَ"
+    },
+    {
+      "order_id": 13,
+      "position": {
+        "row": 6,
+        "col": 2
+      },
+      "latin": "A BA TA TSA JA HA KHO",
+      "arabic": "أَ بَ تَ ثَ جَ حَ خَ"
+    },
+    {
+      "order_id": 14,
+      "position": {
+        "row": 7,
+        "col": 1
+      },
+      "latin": "A KH KH",
+      "arabic": "ا خ خ"
+    },
+    {
+      "order_id": 15,
+      "position": {
+        "row": 7,
+        "col": 2
+      },
+      "latin": "J H KH",
+      "arabic": "ج ح خ"
+    },
+    {
+      "order_id": 16,
+      "position": {
+        "row": 8,
+        "col": 1
+      },
+      "latin": "ABT TS JH KH",
+      "arabic": "ابت ث جح خ"
+    }
+  ]
+}

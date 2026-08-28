@@ -1,0 +1,175 @@
+{
+  "level_id": 1,
+  "level_title": "IQRO' 1",
+  "topic": {
+    "latin": "Membedakan Huruf",
+    "arab": ""
+  },
+  "instruction_id": "PENTING BEDAKAN DENGAN JELAS ANTARA",
+  "instruction_en": "IMPORTANT: DISTINGUISH CLEARLY BETWEEN",
+  "instruction_ar": "",
+  "content": [
+    {
+      "order_id": 1,
+      "position": {
+        "row": 1,
+        "col": 1
+      },
+      "latin": "A - AIN, TA - SA",
+      "arabic": "اَ - عَ , ت - سَ"
+    },
+    {
+      "order_id": 2,
+      "position": {
+        "row": 1,
+        "col": 2
+      },
+      "latin": "HA - HA, TSA - SYA",
+      "arabic": "حَ - هَ , ثَ - شَ"
+    },
+    {
+      "order_id": 3,
+      "position": {
+        "row": 2,
+        "col": 1
+      },
+      "latin": "JA - ZA, SA - SYA",
+      "arabic": "جَ - زَ , سَ - شَ"
+    },
+    {
+      "order_id": 4,
+      "position": {
+        "row": 2,
+        "col": 2
+      },
+      "latin": "YA - ZA, SA - SHO",
+      "arabic": "يَ - زَ , سَ - صَ"
+    },
+    {
+      "order_id": 5,
+      "position": {
+        "row": 2,
+        "col": 3
+      },
+      "latin": "KHO - AIN, TA - THO",
+      "arabic": "خَ - عَ , ت - طَ"
+    },
+    {
+      "order_id": 6,
+      "position": {
+        "row": 3,
+        "col": 1
+      },
+      "latin": "KHO - QOF, DA - ZHO",
+      "arabic": "خَ - قَ , د - ظَ"
+    },
+    {
+      "order_id": 7,
+      "position": {
+        "row": 3,
+        "col": 2
+      },
+      "latin": "GHA - QOF, ZHO - DHOD",
+      "arabic": "غَ - قَ , ظَ - ضَ"
+    },
+    {
+      "order_id": 8,
+      "position": {
+        "row": 3,
+        "col": 3
+      },
+      "latin": "SY",
+      "arabic": "ش"
+    },
+    {
+      "order_id": 9,
+      "position": {
+        "row": 4,
+        "col": 1
+      },
+      "latin": "Y",
+      "arabic": "ي"
+    },
+    {
+      "order_id": 10,
+      "position": {
+        "row": 4,
+        "col": 2
+      },
+      "latin": "DZ",
+      "arabic": "ذ"
+    },
+    {
+      "order_id": 11,
+      "position": {
+        "row": 4,
+        "col": 3
+      },
+      "latin": "S",
+      "arabic": "س"
+    },
+    {
+      "order_id": 12,
+      "position": {
+        "row": 4,
+        "col": 4
+      },
+      "latin": "DH",
+      "arabic": "ض"
+    },
+    {
+      "order_id": 13,
+      "position": {
+        "row": 5,
+        "col": 1
+      },
+      "latin": "GH",
+      "arabic": "غ"
+    },
+    {
+      "order_id": 14,
+      "position": {
+        "row": 5,
+        "col": 2
+      },
+      "latin": "T",
+      "arabic": "ت"
+    },
+    {
+      "order_id": 15,
+      "position": {
+        "row": 6,
+        "col": 2
+      },
+      "latin": "Q",
+      "arabic": "ق"
+    },
+    {
+      "order_id": 16,
+      "position": {
+        "row": 7,
+        "col": 1
+      },
+      "latin": "Q",
+      "arabic": "ق"
+    },
+    {
+      "order_id": 17,
+      "position": {
+        "row": 7,
+        "col": 2
+      },
+      "latin": "ZH",
+      "arabic": "ظ"
+    },
+    {
+      "order_id": 18,
+      "position": {
+        "row": 7,
+        "col": 3
+      },
+      "latin": "M",
+      "arabic": "م"
+    }
+  ]
+}
