@@ -1,13 +1,13 @@
 {
-  "level_id": 1,
-  "level_title": "IQRO' 1",
+  "level_id": 2,
+  "level_title": "IQRO' 2",
   "topic": {
-    "latin": "GHAIN",
-    "arab": "غَ"
+    "latin": "Letters with Sukun and Extended Vowels (Mad)",
+    "arab": "حُرُوفُ السُّكُونِ وَالْمَدِّ"
   },
-  "instruction_id": "",
-  "instruction_en": "",
-  "instruction_ar": "",
+  "instruction_id": "Berlatih menghubungkan huruf dengan sukun dan mengenali vokal yang diperpanjang.",
+  "instruction_en": "Practice connecting letters with sukun and recognizing extended vowels.",
+  "instruction_ar": "تَدَرَّبْ عَلَى وَصْلِ الْحُرُوفِ بِالسُّكُونِ وَتَعَرُّفِ الْمَدِّ.",
   "content": [
     {
       "order_id": 1,
@@ -15,143 +15,188 @@
         "row": 1,
         "col": 1
       },
-      "latin": "GHAIN",
-      "arabic": "غَ"
+      "latin": "QATL",
+      "arabic": "قاتل"
     },
     {
       "order_id": 2,
       "position": {
-        "row": 2,
-        "col": 1
+        "row": 1,
+        "col": 2
       },
-      "latin": "GHAIN A GHAIN",
-      "arabic": "غَ اَ غَ"
+      "latin": "QTLTA",
+      "arabic": "قتلتا"
     },
     {
       "order_id": 3,
       "position": {
-        "row": 2,
-        "col": 2
+        "row": 1,
+        "col": 3
       },
-      "latin": "DA GHAIN THO",
-      "arabic": "دَ غَ طَ"
+      "latin": "FQTLA",
+      "arabic": "فقتلا"
     },
     {
       "order_id": 4,
       "position": {
-        "row": 3,
+        "row": 2,
         "col": 1
       },
-      "latin": "GHAIN THO GHAIN",
-      "arabic": "غَ طَ غَ"
+      "latin": "HSADM",
+      "arabic": "هسادم"
     },
     {
       "order_id": 5,
       "position": {
-        "row": 4,
-        "col": 1
+        "row": 2,
+        "col": 2
       },
-      "latin": "TSA GHAIN THO",
-      "arabic": "ثَ غَ طَ"
+      "latin": "HDMTA",
+      "arabic": "هدمتًا"
     },
     {
       "order_id": 6,
       "position": {
-        "row": 4,
-        "col": 2
+        "row": 2,
+        "col": 3
       },
-      "latin": "HA JA GHAIN",
-      "arabic": "حَ جَ غَ"
+      "latin": "FHDMA",
+      "arabic": "فهدما"
     },
     {
       "order_id": 7,
       "position": {
-        "row": 4,
-        "col": 3
+        "row": 3,
+        "col": 1
       },
-      "latin": "SA THO GHAIN",
-      "arabic": "سَ طَ غَ"
+      "latin": "SHAR'",
+      "arabic": "صارع"
     },
     {
       "order_id": 8,
       "position": {
-        "row": 5,
-        "col": 1
+        "row": 3,
+        "col": 2
       },
-      "latin": "HA RA ZHO",
-      "arabic": "حَ رَ ظَ"
+      "latin": "SHR'TA",
+      "arabic": "صرعتًا"
     },
     {
       "order_id": 9,
       "position": {
-        "row": 5,
-        "col": 2
+        "row": 3,
+        "col": 3
       },
-      "latin": "SYA GHAIN THO",
-      "arabic": "شَ غَ طَ"
+      "latin": "FSHR'A",
+      "arabic": "فصرعًا"
     },
     {
       "order_id": 10,
       "position": {
-        "row": 5,
-        "col": 3
+        "row": 4,
+        "col": 1
       },
-      "latin": "SHOD RA GHAIN",
-      "arabic": "صَ رَ غَ"
+      "latin": "DHARB",
+      "arabic": "ضارب"
     },
     {
       "order_id": 11,
       "position": {
-        "row": 6,
-        "col": 1
+        "row": 4,
+        "col": 2
       },
-      "latin": "ZA KHO ZHO",
-      "arabic": "زَ خَ ظَ"
+      "latin": "DHRBTA",
+      "arabic": "ضربتا"
     },
     {
       "order_id": 12,
       "position": {
-        "row": 6,
-        "col": 2
+        "row": 4,
+        "col": 3
       },
-      "latin": "DHOD AIN GHAIN",
-      "arabic": "ضَ ع غَ"
+      "latin": "FDHRBA",
+      "arabic": "فضربا"
     },
     {
       "order_id": 13,
       "position": {
-        "row": 6,
-        "col": 3
+        "row": 5,
+        "col": 1
       },
-      "latin": "TA GHAIN DHOD",
-      "arabic": "تَ غَ ضَ"
+      "latin": "HAJM",
+      "arabic": "هاجم"
     },
     {
       "order_id": 14,
       "position": {
-        "row": 7,
-        "col": 1
+        "row": 5,
+        "col": 2
       },
-      "latin": "SYA RA ZHO",
-      "arabic": "شَ رَ ظَ"
+      "latin": "HJMTA",
+      "arabic": "هجمتًا"
     },
     {
       "order_id": 15,
       "position": {
-        "row": 8,
-        "col": 1
+        "row": 5,
+        "col": 3
       },
-      "latin": "THO AIN BA GHAIN",
-      "arabic": "طَ ع بَ غَ"
+      "latin": "FHJMA",
+      "arabic": "فهجما"
     },
     {
       "order_id": 16,
       "position": {
-        "row": 8,
+        "row": 6,
+        "col": 1
+      },
+      "latin": "QSAWM",
+      "arabic": "قساوم"
+    },
+    {
+      "order_id": 17,
+      "position": {
+        "row": 6,
         "col": 2
       },
-      "latin": "BA GHAIN SHOD",
-      "arabic": "بَ غَ صَ"
+      "latin": "QWMT",
+      "arabic": "قومت"
+    },
+    {
+      "order_id": 18,
+      "position": {
+        "row": 6,
+        "col": 3
+      },
+      "latin": "F QWMA",
+      "arabic": "ف قوما"
+    },
+    {
+      "order_id": 19,
+      "position": {
+        "row": 7,
+        "col": 1
+      },
+      "latin": "RADZL",
+      "arabic": "راذل"
+    },
+    {
+      "order_id": 20,
+      "position": {
+        "row": 7,
+        "col": 2
+      },
+      "latin": "RDZLTA",
+      "arabic": "رذلتا"
+    },
+    {
+      "order_id": 21,
+      "position": {
+        "row": 7,
+        "col": 3
+      },
+      "latin": "FSRDZLA",
+      "arabic": "فسرذلا"
     }
   ]
 }

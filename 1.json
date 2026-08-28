@@ -1,13 +1,13 @@
 {
-  "level_id": 1,
-  "level_title": "IQRO' 1",
+  "level_id": 2,
+  "level_title": "IQRO' 2",
   "topic": {
-    "latin": "A BA",
-    "arab": "اَ بَ"
+    "latin": "Letters with Sukun and Extended Vowels (Mad)",
+    "arab": "حُرُوفُ السُّكُونِ وَالْمَدِّ"
   },
-  "instruction_id": "Bacaan langsung A Bacalah dengan suara pendek Ba dst: Tidak perlu diuraildieja ",
-  "instruction_en": "Direct reading A - Ba, etc. No need to spell out. Read with short sounds.",
-  "instruction_ar": "القراءة المباشرة أ - ب وهكذا. لا حاجة للتهجئة. اقرأ بصوت قصير.",
+  "instruction_id": "Berlatih menghubungkan huruf dengan sukun dan mengenali vokal yang diperpanjang.",
+  "instruction_en": "Practice connecting letters with sukun and recognizing extended vowels.",
+  "instruction_ar": "تَدَرَّبْ عَلَى وَصْلِ الْحُرُوفِ بِالسُّكُونِ وَتَعَرُّفِ الْمَدِّ.",
   "content": [
     {
       "order_id": 1,
@@ -15,125 +15,71 @@
         "row": 1,
         "col": 1
       },
-      "latin": "A = A",
-      "arabic": "أَ = أَ"
+      "latin": "BATA = BADA = BADA",
+      "arabic": "بَتَ = بَ دَ = بَ دَ"
     },
     {
       "order_id": 2,
       "position": {
-        "row": 2,
-        "col": 1
+        "row": 1,
+        "col": 2
       },
-      "latin": "A BA",
-      "arabic": "أَ بَ"
+      "latin": "TAR = TAR = TARU = TARU",
+      "arabic": "تَر = تَر = تَرَ وُ = تَر وُ"
     },
     {
       "order_id": 3,
       "position": {
-        "row": 2,
-        "col": 2
+        "row": 1,
+        "col": 3
       },
-      "latin": "BA A BA",
-      "arabic": "بَ اَ بَ"
+      "latin": "TATA TADA TABA TAWU",
+      "arabic": "تَتَ    تَدَ    تَبَ    تَوُ"
     },
     {
       "order_id": 4,
       "position": {
-        "row": 2,
-        "col": 3
+        "row": 1,
+        "col": 4
       },
-      "latin": "A BA A",
-      "arabic": "اَ بَ اَ"
+      "latin": "BABA BADZA BATA TAZA",
+      "arabic": "بَبَ    بَذَ    بَتَ    تَزَ"
     },
     {
       "order_id": 5,
       "position": {
-        "row": 3,
+        "row": 2,
         "col": 1
       },
-      "latin": "BA A A",
-      "arabic": "بَ اَ اَ"
+      "latin": "BATHA TADZA THATA ZATHA",
+      "arabic": "بَثَ    تَذَ    ثَتَ    زَثَ"
     },
     {
       "order_id": 6,
       "position": {
-        "row": 3,
+        "row": 2,
         "col": 2
       },
-      "latin": "A A BA",
-      "arabic": "اَ اَ بَ"
+      "latin": "BA'A BAATA TA'A TAATA",
+      "arabic": "بَأَ    بَاتَ    تَأَ    تَاتَ"
     },
     {
       "order_id": 7,
       "position": {
-        "row": 4,
+        "row": 3,
         "col": 1
       },
-      "latin": "BA BA A",
-      "arabic": "بَ بَ اَ"
+      "latin": "THABA THARU BARU TAWA",
+      "arabic": "ثَبَ    ثَرُ    بَرُ    تَوَ"
     },
     {
       "order_id": 8,
       "position": {
-        "row": 5,
-        "col": 1
-      },
-      "latin": "A BA BA",
-      "arabic": "اَ بَ بَ"
-    },
-    {
-      "order_id": 9,
-      "position": {
-        "row": 5,
+        "row": 3,
         "col": 2
       },
-      "latin": "BA A BA",
-      "arabic": "بَ اَ بَ"
-    },
-    {
-      "order_id": 10,
-      "position": {
-        "row": 6,
-        "col": 1
-      },
-      "latin": "A BA A",
-      "arabic": "اَ بَ اَ"
-    },
-    {
-      "order_id": 11,
-      "position": {
-        "row": 6,
-        "col": 2
-      },
-      "latin": "A A A",
-      "arabic": "اَ اَ اَ"
-    },
-    {
-      "order_id": 12,
-      "position": {
-        "row": 6,
-        "col": 3
-      },
-      "latin": "BA BA BA",
-      "arabic": "بَ بَ بَ"
-    },
-    {
-      "order_id": 13,
-      "position": {
-        "row": 7,
-        "col": 1
-      },
-      "latin": "A BA",
-      "arabic": "اَ بَ"
-    },
-    {
-      "order_id": 14,
-      "position": {
-        "row": 7,
-        "col": 2
-      },
-      "latin": "A BA",
-      "arabic": "اَ بَ"
+      "latin": "TOHA JAKA KAY JASA",
+      "arabic": "طَهَ    جَكَ    كَى    جَسَ"
     }
   ]
 }
