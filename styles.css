@@ -396,8 +396,11 @@ section { position: relative; z-index: 2; }
 .download-master-card { background: linear-gradient(135deg, var(--orange), var(--pink)); border-radius: 28px; padding: 3rem; text-align: center; margin-bottom: 3rem; box-shadow: 0 12px 40px rgba(255,107,53,.4); position: relative; overflow: hidden; }
 .download-master-card h2 { position: relative; font-family: var(--font-head); font-size: 2rem; font-weight: 900; color: white; margin-bottom: .75rem; }
 .download-master-card p { position: relative; color: rgba(255,255,255,.9); margin-bottom: 2rem; font-size: 1rem; }
-.btn-download-big { position: relative; background: white; color: var(--orange); padding: 1rem 3rem; border-radius: 30px; font-weight: 900; font-size: 1.1rem; border: none; cursor: pointer; transition: all .3s; box-shadow: 0 6px 24px rgba(0,0,0,.2); display: inline-flex; align-items: center; gap: .6rem; }
+.download-buttons-wrapper { display: flex; gap: 1.2rem; justify-content: center; align-items: center; flex-wrap: wrap; position: relative; }
+.btn-download-big { position: relative; background: white; color: var(--orange); padding: 1rem 2.2rem; border-radius: 30px; font-weight: 900; font-size: 1.05rem; border: none; cursor: pointer; transition: all .3s; box-shadow: 0 6px 24px rgba(0,0,0,.2); display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; }
 .btn-download-big:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 12px 32px rgba(0,0,0,.3); }
+.btn-download-doa { background: #E1F5FE; color: #0277BD; }
+.btn-download-doa:hover { background: #B3E5FC; color: #01579B; }
 .download-bulan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
 .download-bulan-card { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 20px; padding: 1.5rem 1rem; text-align: center; cursor: pointer; transition: all .3s; backdrop-filter: blur(8px); }
 .download-bulan-card:hover { background: rgba(255,255,255,.2); transform: translateY(-4px); border-color: rgba(255,255,255,.4); }
