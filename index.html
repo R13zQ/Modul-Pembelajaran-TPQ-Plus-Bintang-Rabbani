@@ -75,6 +75,7 @@
           <ul>
             <li><a onclick="app.scrollTo('hero')" class="active">Beranda</a></li>
             <li><a onclick="app.scrollTo('pilar')">4 Pilar</a></li>
+            <li><a onclick="app.scrollTo('jingle-section')">🎵 Jingle</a></li>
             <li><a onclick="app.scrollTo('media-library')">Pustaka</a></li>
             <li><a onclick="app.scrollTo('roadmap')">Kurikulum</a></li>
             <li><a onclick="app.scrollTo('quiz')">Quiz</a></li>
@@ -101,6 +102,7 @@
       <ul>
         <li><a onclick="app.scrollTo('hero')">Beranda</a></li>
         <li><a onclick="app.scrollTo('pilar')">4 Pilar</a></li>
+        <li><a onclick="app.scrollTo('jingle-section')">🎵 Jingle Bintang Rabbani</a></li>
         <li><a onclick="app.scrollTo('media-library')">Pustaka</a></li>
         <li><a onclick="app.scrollTo('roadmap')">Kurikulum</a></li>
         <li><a onclick="app.scrollTo('quiz')">Quiz</a></li>
@@ -128,6 +130,7 @@
             </div>
             <div class="hero-btns">
               <button class="btn-primary" onclick="app.scrollTo('roadmap')">Mulai Belajar <i class="fa-solid fa-arrow-right"></i></button>
+              <button class="btn-primary" style="background:linear-gradient(135deg,#9C27B0,#FF4081); box-shadow:0 6px 20px rgba(156,39,176,.4)" onclick="app.openJingleModal()"><i class="fa-solid fa-music"></i> Putar Jingle & Lirik</button>
               <button class="btn-download-master" onclick="app.scrollTo('download')"><i class="fa-solid fa-cloud-arrow-down"></i> Unduh Modul Cetak</button>
             </div>
             <div class="hero-stats">
@@ -253,6 +256,200 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jingle Bintang Rabbani Section -->
+    <section id="jingle-section" style="padding: 4.5rem 0; background: linear-gradient(180deg, #F0F9FF 0%, #E1F5FE 100%); border-top: 3px solid var(--blue); position: relative; z-index: 2">
+      <div class="container">
+        <div style="text-align:center; margin-bottom: 2.5rem">
+          <span class="badge" style="background:rgba(156,39,176,0.12); color:var(--purple); border-color:var(--purple)">🎵 Lagu Resmi TPQ Plus</span>
+          <h2 class="section-title">Jingle TPQ Plus Bintang Rabbani</h2>
+          <p class="section-sub">Dengarkan lagu jingle resmi bernuansa ceria dan ikuti liriknya untuk bernyanyi bersama santri!</p>
+        </div>
+
+        <div class="jingle-card" style="max-width: 900px; margin: 0 auto; background: white; border-radius: 28px; padding: 2.2rem; box-shadow: 0 18px 50px rgba(41,182,246,0.22); border: 3px solid #FFF59D; position: relative; overflow: hidden">
+          
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; border-bottom: 2px solid #F0F4F8; padding-bottom: 1.5rem; margin-bottom: 1.5rem">
+            <div style="display: flex; align-items: center; gap: 1.2rem">
+              <div style="width: 75px; height: 75px; background: linear-gradient(135deg, var(--orange), var(--yellow)); border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; box-shadow: 0 8px 24px rgba(255,107,53,0.35); animation: logo-bounce 1s ease-in-out infinite alternate">
+                🎵
+              </div>
+              <div>
+                <h3 style="font-family: 'Poppins', sans-serif; font-weight: 900; color: #1A237E; font-size: 1.45rem; margin-bottom: 0.2rem">
+                  Jingle Bimbel TPQ Plus Bintang Rabbani
+                </h3>
+                <span style="font-weight: 800; color: #78909c; font-size: 0.85rem">
+                  <i class="fa-solid fa-microphone-lines"></i> Cerdas, Ceria, Berakhlak Qur'ani
+                </span>
+              </div>
+            </div>
+            
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap">
+              <button onclick="app.toggleJingleAudio()" id="btn-jingle-main-play" style="background: linear-gradient(135deg, var(--green), #00A876); color: white; border: none; padding: 0.75rem 1.8rem; border-radius: 30px; font-weight: 800; font-size: 0.95rem; cursor: pointer; box-shadow: 0 6px 18px rgba(0,200,150,0.4); display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.25s">
+                <i class="fa-solid fa-play" id="icon-jingle-main-play"></i> <span id="text-jingle-main-play">Putar Jingle</span>
+              </button>
+              <button onclick="app.toggleJingleLyrics()" style="background: #E3F2FD; color: #1565C0; border: 2px solid #90CAF9; padding: 0.75rem 1.4rem; border-radius: 30px; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.25s">
+                <i class="fa-solid fa-scroll"></i> <span id="text-toggle-lyrics">Tampilkan Lirik</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Audio Element -->
+          <audio id="jingle-audio" src="Jingle Bintang Rabbani.mp3" preload="metadata"></audio>
+
+          <!-- Custom Audio Progress & Time Controls -->
+          <div style="background: #F8FAFB; border-radius: 20px; padding: 1.2rem 1.5rem; border: 1.5px solid #CFD8DC; margin-bottom: 1.5rem">
+            <div style="display: flex; align-items: center; gap: 1rem">
+              <span id="jingle-current-time" style="font-weight: 800; font-size: 0.85rem; color: #1A237E; min-width: 42px">0:00</span>
+              <div style="flex: 1; height: 10px; background: #E0E0E0; border-radius: 10px; cursor: pointer; position: relative; overflow: hidden" onclick="app.seekJingle(event)" id="jingle-progress-bar-container">
+                <div id="jingle-progress-fill" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--orange), var(--yellow)); border-radius: 10px; transition: width 0.1s linear"></div>
+              </div>
+              <span id="jingle-duration-time" style="font-weight: 800; font-size: 0.85rem; color: #546e7a; min-width: 42px">0:00</span>
+            </div>
+          </div>
+
+          <!-- Lyrics Display Container -->
+          <div id="jingle-lyrics-container" style="display: block; background: linear-gradient(180deg, #FAFAFA, #FFFFFF); border-radius: 22px; padding: 1.8rem; border: 2px solid #E0E0E0; max-height: 440px; overflow-y: auto; box-shadow: inset 0 3px 10px rgba(0,0,0,0.03)">
+            <h4 style="font-family: 'Poppins', sans-serif; font-weight: 900; color: #1A237E; text-align: center; font-size: 1.15rem; margin-bottom: 1.2rem; border-bottom: 2px dashed #CFD8DC; padding-bottom: 0.6rem">
+              📜 LIRIK LAGU JINGLE BINTANG RABBANI
+            </h4>
+            <div class="jingle-lyrics-body" style="font-size: 0.95rem; line-height: 1.8; color: #263238; font-family: 'Nunito', sans-serif">
+
+              <div style="margin-bottom: 1.2rem; background: #FFF9C4; border-left: 4px solid #FBC02D; padding: 0.8rem 1.2rem; border-radius: 12px">
+                <div style="font-weight: 900; color: #F57F17; font-size: 1.05rem; text-align: center">🎵 JINGLE BIMBEL TPQ PLUS BINTANG RABBANI 🎵</div>
+              </div>
+
+              <!-- Intro -->
+              <div style="margin-bottom: 1.2rem; background: #F5F7FA; border-radius: 14px; padding: 1rem 1.2rem; border: 1px solid #ECEFF1">
+                <span style="background: #E3F2FD; color: #1565C0; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px; margin-right: 0.4rem">[Intro]</span>
+                <span style="color: #78909c; font-size: 0.8rem; font-style: italic">[SFX: tepuk tangan anak-anak]</span>
+                <div style="margin-top: 0.4rem; font-weight: 800; color: #FF6B35; font-size: 0.82rem">[Singer: Anak-anak]</div>
+                <div style="margin-top: 0.3rem">
+                  Satu, dua, tiga!<br>
+                  <strong>Bintang Rabbani!</strong><br>
+                  Cerdas, ceria, berakhlak Qur'ani!<br>
+                  La la la la, la la la la<br>
+                  Yaaay!
+                </div>
+              </div>
+
+              <!-- Verse 1 -->
+              <div style="margin-bottom: 1.2rem; background: #F5F7FA; border-radius: 14px; padding: 1rem 1.2rem; border: 1px solid #ECEFF1">
+                <span style="background: #E8F5E9; color: #2E7D32; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px; margin-right: 0.4rem">[Verse 1]</span>
+                <div style="margin-top: 0.4rem; font-weight: 800; color: #1565C0; font-size: 0.82rem">[Singer: Guru]</div>
+                <div style="margin-top: 0.3rem">
+                  Semangat pagi, cinta belajar<br>
+                  Matahari tersenyum ramah<br>
+                  Langkah kecil melompat gembira<br>
+                  Bawa buku dan senyuman cerah<br><br>
+                  Menuntut ilmu, mencari rida Allah<br>
+                  Ayo kawan, kita membaca<br>
+                  <strong>A, B, C sampai Z!</strong><br>
+                  Buku jadi jendela dunia<br>
+                  Kata indah kami rangkai<br>
+                  Ayo kawan, kita menulis<br>
+                  Torehkan prestasi!!!!
+                </div>
+              </div>
+
+              <!-- Singer Semua -->
+              <div style="margin-bottom: 1.2rem; background: #F5F7FA; border-radius: 14px; padding: 1rem 1.2rem; border: 1px solid #ECEFF1">
+                <div style="font-weight: 800; color: #9C27B0; font-size: 0.82rem">[Singer: Semua]</div>
+                <div style="margin-top: 0.3rem">
+                  Satu tambah satu, mari berhitung<br>
+                  Matematika asyik bersama guru.<br>
+                  Nilai agama, akhlak mulia<br>
+                  Belajar Qur'an dengan bahagia<br><br>
+                  Tajwid dan tilawah, doa setiap hari<br>
+                  Sedekah, hormat ayah bunda, sayang sesama<br>
+                  Tumbuh saleh dan salehah<br>
+                  Bintang duniaaa..., berkah akhiratnya
+                </div>
+              </div>
+
+              <!-- Reff -->
+              <div style="margin-bottom: 1.2rem; background: #FFF3E0; border-radius: 14px; padding: 1rem 1.2rem; border-left: 4px solid #FF6B35">
+                <span style="background: #FF6B35; color: white; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px">Reff</span>
+                <div style="margin-top: 0.5rem; font-weight: 800; color: #1A237E; font-size: 1rem; line-height: 1.6">
+                  Bintang Rabbani, tempat asyik belajar<br>
+                  Cerdas akalnya, hatinya bersinar<br>
+                  TPQ Bintang Rabbani, sahabat generasi madani!
+                </div>
+              </div>
+
+              <!-- Bridge -->
+              <div style="margin-bottom: 1.2rem; background: #F5F7FA; border-radius: 14px; padding: 1rem 1.2rem; border: 1px solid #ECEFF1">
+                <span style="background: #F3E5F5; color: #7B1FA2; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px">Bridge</span>
+                <div style="margin-top: 0.4rem">
+                  Membaca, menulis, berhitung, mengaji<br>
+                  Wujudkan cita-cita anak negeri!
+                </div>
+              </div>
+
+              <!-- Verse 3 -->
+              <div style="margin-bottom: 1.2rem; background: #F5F7FA; border-radius: 14px; padding: 1rem 1.2rem; border: 1px solid #ECEFF1">
+                <span style="background: #E8F5E9; color: #2E7D32; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px">[Verse 3]</span>
+                <div style="margin-top: 0.4rem">
+                  Belajar di sini tiada rasa jenuh<br>
+                  Bermain dan bernalar dengan sungguh-sungguh<br>
+                  Adab diutamakan, ilmu ditingkatkan<br>
+                  Karakter juara kita kembangkan
+                </div>
+              </div>
+
+              <!-- Pre-Chorus -->
+              <div style="margin-bottom: 1.2rem; background: #F5F7FA; border-radius: 14px; padding: 1rem 1.2rem; border: 1px solid #ECEFF1">
+                <span style="background: #E0F7FA; color: #00838F; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px">[Pre-Chorus]</span>
+                <div style="margin-top: 0.4rem">
+                  Kecil dibina, kelak jadi pelita<br>
+                  Membangun bangsa dengan iman dan takwa<br>
+                  Langkah demi langkah menuju mimpi<br>
+                  Cahaya berkilau di dalam sanubari
+                </div>
+              </div>
+
+              <!-- Bridge Ayah Bunda -->
+              <div style="margin-bottom: 1.2rem; background: #E8F5E9; border-radius: 14px; padding: 1rem 1.2rem; border-left: 4px solid #00C896">
+                <span style="background: #00C896; color: white; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px">Pesan Ayah & Bunda</span>
+                <div style="margin-top: 0.4rem">
+                  Wahai ayah dan bunda<br>
+                  Mari wujudkan ruang belajar penuh berkah di rumah<br>
+                  Bukalah pintu kebaikan<br>
+                  Lahirkan generasi gemilang di setiap lingkungan<br>
+                  <em style="color: #00796B; font-weight: 800">“Ayo buka cabang Bintang Rabbani sekarang!”</em>
+                </div>
+              </div>
+
+              <!-- Chorus -->
+              <div style="margin-bottom: 1.2rem; background: #FFF3E0; border-radius: 14px; padding: 1rem 1.2rem; border-left: 4px solid #FF6B35">
+                <span style="background: #FF6B35; color: white; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px">[Chorus]</span>
+                <div style="margin-top: 0.3rem; font-weight: 800; color: #9C27B0; font-size: 0.82rem">[Singer: Semua]</div>
+                <div style="margin-top: 0.4rem; font-weight: 800; color: #1A237E; font-size: 1rem; line-height: 1.6">
+                  Bintang Rabbani, tempat asyik belajar<br>
+                  Cerdas akalnya, hatinya bersinar<br>
+                  TPQ Bintang Rabbani, rumah generasi madani<br>
+                  Ayo gabung bersama kami<br>
+                  Raih berkah, cerdas dan mandiri!
+                </div>
+              </div>
+
+              <!-- Outro -->
+              <div style="background: #F5F7FA; border-radius: 14px; padding: 1rem 1.2rem; border: 1px solid #ECEFF1">
+                <span style="background: #FFEBEE; color: #C62828; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px">[Outro]</span>
+                <div style="margin-top: 0.3rem; font-weight: 800; color: #FF6B35; font-size: 0.82rem">[Singer: Anak-anak]</div>
+                <div style="margin-top: 0.4rem">
+                  Bimbel TPQ Bintang Rabbani!<br>
+                  Cerdas dunianya, berkah akhiratnya!<br>
+                  <strong>Daftar yuk! Horeee! 🎉</strong><br>
+                  <span style="color: #78909c; font-size: 0.8rem; font-style: italic">[SFX: tawa gembira anak-anak]</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -1194,6 +1391,38 @@
       <div style="background:white; border-radius:24px; padding:1.5rem; overflow:hidden; text-align:center">
         <img id="zoom-media-img" src="" style="width:100%; max-height:480px; object-fit:contain; border-radius:16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1)">
         <h4 id="zoom-media-title" style="font-family:'Poppins',sans-serif; font-weight:800; color:#1A237E; margin-top:.8rem; font-size:1.1rem">Judul Media</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Jingle Bintang Rabbani -->
+  <div class="modal-overlay" id="modal-jingle">
+    <div class="modal-card" style="max-width: 820px; width: 95%;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #1A237E, #283593); color: white;">
+        <h3 style="display:flex; align-items:center; gap:0.5rem; color:white; font-family:'Poppins',sans-serif">
+          🎵 Jingle Bimbel TPQ Plus Bintang Rabbani
+        </h3>
+        <button class="modal-close" style="color:white" onclick="app.closeJingleModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 1.8rem; background: #F8FAFB;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; background: white; padding: 1.2rem 1.5rem; border-radius: 20px; border: 1.5px solid #CFD8DC; box-shadow: 0 4px 14px rgba(0,0,0,0.03)">
+          <div>
+            <h4 style="font-family: 'Poppins', sans-serif; font-weight: 800; color: #1A237E; margin-bottom: 0.2rem">Putar Jingle Resmi</h4>
+            <span style="font-size: 0.8rem; color: #78909c; font-weight: 700">Audio Stereo MP3 • Cerdas, Ceria, Berakhlak Qur'ani</span>
+          </div>
+          <button onclick="app.toggleJingleAudio()" class="btn" style="background: linear-gradient(135deg, var(--green), #00A876); color: white; border: none; padding: 0.7rem 1.6rem; border-radius: 30px; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem; box-shadow: 0 4px 14px rgba(0,200,150,0.3)">
+            <i class="fa-solid fa-play" id="icon-jingle-modal-play"></i> <span id="text-jingle-modal-play">Putar Lagu</span>
+          </button>
+        </div>
+        
+        <div style="background: white; border-radius: 20px; padding: 1.5rem; border: 1.5px solid #CFD8DC; max-height: 420px; overflow-y: auto;">
+          <h4 style="font-family: 'Poppins', sans-serif; font-weight: 900; color: #1A237E; text-align: center; font-size: 1.1rem; margin-bottom: 1rem; border-bottom: 2px dashed #CFD8DC; padding-bottom: 0.5rem">
+            📜 LIRIK LAGU JINGLE BINTANG RABBANI
+          </h4>
+          <div id="modal-lyrics-content">
+            <!-- Lyrics clone injected dynamically or rendered -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
