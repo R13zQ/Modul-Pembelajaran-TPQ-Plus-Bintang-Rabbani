@@ -513,3 +513,19 @@ footer { position: relative; z-index: 2; background: linear-gradient(135deg, #1A
   background: #E3F2FD !important;
 }
 
+/* Jingle Card & Lyrics Styling */
+.jingle-card {
+  transition: all 0.3s ease;
+}
+.jingle-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 60px rgba(41,182,246,0.28);
+}
+#jingle-lyrics-container::-webkit-scrollbar, #modal-lyrics-content::-webkit-scrollbar {
+  width: 6px;
+}
+#jingle-lyrics-container::-webkit-scrollbar-thumb, #modal-lyrics-content::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: 6px;
+}
+

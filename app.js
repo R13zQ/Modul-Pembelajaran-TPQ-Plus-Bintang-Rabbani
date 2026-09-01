@@ -12,12 +12,12 @@ const app = {
   
   // Init
   init() {
-    this.initSkyAnimation();
     this.initSparkles();
     this.initNavScroll();
     this.renderDownloadBulan();
     this.renderSantriList();
     this.initHamburger();
+    this.initJinglePlayer();
     // Pilih bulan 1 by default
     setTimeout(() => this.pilihBulan(1), 500);
     
@@ -222,37 +222,6 @@ const app = {
     users.splice(idx, 1);
     localStorage.setItem('registeredUsers', JSON.stringify(users));
     this.renderAdminUserList();
-  },
-  
-  // === SKY ANIMATION ===
-  initSkyAnimation() {
-    // Buat 12 awan dengan posisi, ukuran, kecepatan random
-    const skyCanvas = document.querySelector('.sky-canvas');
-    if (!skyCanvas) return;
-    const cloudSizes = ['cloud-xs', 'cloud-sm', 'cloud-md', 'cloud-lg', 'cloud-xl'];
-    const cloudColors = ['cloud-w', 'cloud-lb', 'cloud-b', 'cloud-lt'];
-    for (let i = 0; i < 12; i++) {
-      const cloud = document.createElement('div');
-      cloud.classList.add('cloud', cloudSizes[i % cloudSizes.length], cloudColors[i % cloudColors.length]);
-      cloud.style.top = `${Math.random() * 60}%`;
-      cloud.style.animationDuration = `${20 + Math.random() * 30}s`;
-      cloud.style.animationDelay = `${-Math.random() * 30}s`;
-      skyCanvas.appendChild(cloud);
-    }
-    // Buat bintang-bintang
-    const starLayer = document.querySelector('.star-layer');
-    if (!starLayer) return;
-    for (let i = 0; i < 20; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.width = star.style.height = `${3 + Math.random() * 6}px`;
-      star.style.background = ['#FFD600','#29B6F6','#FF6B35','#00C896'][Math.floor(Math.random()*4)];
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.top = `${Math.random() * 50}%`;
-      star.style.animationDuration = `${1.5 + Math.random() * 3}s`;
-      star.style.animationDelay = `${-Math.random() * 3}s`;
-      starLayer.appendChild(star);
-    }
   },
   
   // === SPARKLES ===
@@ -1562,6 +1531,127 @@ const app = {
     }).join('');
     // Tombol raport
     progressContent.innerHTML += `<button style="margin-top:1.5rem;background:linear-gradient(135deg,#FF6B35,#FF4081);color:white;border:none;padding:.8rem 2rem;border-radius:20px;font-weight:800;cursor:pointer;font-size:.88rem" onclick="pdfGenerator.cetakRaport('${santri.nama}')">📄 Cetak E-Raport</button>`;
+  },
+
+  // === JINGLE AUDIO PLAYER & LYRICS ===
+  initJinglePlayer() {
+    const audio = document.getElementById('jingle-audio');
+    if (!audio) return;
+
+    audio.addEventListener('timeupdate', () => this.updateJingleProgress());
+    audio.addEventListener('loadedmetadata', () => this.updateJingleProgress());
+    audio.addEventListener('ended', () => {
+      this.updateJinglePlayState(false);
+    });
+
+    // Clone lyrics to modal content
+    const lyricsBody = document.querySelector('.jingle-lyrics-body');
+    const modalContent = document.getElementById('modal-lyrics-content');
+    if (lyricsBody && modalContent) {
+      modalContent.innerHTML = lyricsBody.innerHTML;
+    }
+  },
+
+  toggleJingleAudio() {
+    const audio = document.getElementById('jingle-audio');
+    if (!audio) return;
+
+    if (audio.paused) {
+      audio.play().then(() => {
+        this.updateJinglePlayState(true);
+      }).catch(err => {
+        console.log("Audio play error:", err);
+      });
+    } else {
+      audio.pause();
+      this.updateJinglePlayState(false);
+    }
+  },
+
+  updateJinglePlayState(isPlaying) {
+    const mainIcon = document.getElementById('icon-jingle-main-play');
+    const mainText = document.getElementById('text-jingle-main-play');
+    const mainBtn = document.getElementById('btn-jingle-main-play');
+
+    const modalIcon = document.getElementById('icon-jingle-modal-play');
+    const modalText = document.getElementById('text-jingle-modal-play');
+
+    if (isPlaying) {
+      if (mainIcon) mainIcon.className = 'fa-solid fa-pause';
+      if (mainText) mainText.textContent = 'Jeda Jingle';
+      if (mainBtn) mainBtn.style.background = 'linear-gradient(135deg, var(--orange), #E65100)';
+
+      if (modalIcon) modalIcon.className = 'fa-solid fa-pause';
+      if (modalText) modalText.textContent = 'Jeda Lagu';
+    } else {
+      if (mainIcon) mainIcon.className = 'fa-solid fa-play';
+      if (mainText) mainText.textContent = 'Putar Jingle';
+      if (mainBtn) mainBtn.style.background = 'linear-gradient(135deg, var(--green), #00A876)';
+
+      if (modalIcon) modalIcon.className = 'fa-solid fa-play';
+      if (modalText) modalText.textContent = 'Putar Lagu';
+    }
+  },
+
+  updateJingleProgress() {
+    const audio = document.getElementById('jingle-audio');
+    if (!audio) return;
+
+    const currTimeEl = document.getElementById('jingle-current-time');
+    const durTimeEl = document.getElementById('jingle-duration-time');
+    const fillEl = document.getElementById('jingle-progress-fill');
+
+    const current = audio.currentTime || 0;
+    const duration = audio.duration || 0;
+
+    if (currTimeEl) currTimeEl.textContent = this.formatAudioTime(current);
+    if (durTimeEl) durTimeEl.textContent = duration ? this.formatAudioTime(duration) : '0:00';
+
+    if (fillEl && duration > 0) {
+      const pct = (current / duration) * 100;
+      fillEl.style.width = `${pct}%`;
+    }
+  },
+
+  seekJingle(e) {
+    const audio = document.getElementById('jingle-audio');
+    const bar = document.getElementById('jingle-progress-bar-container');
+    if (!audio || !bar || !audio.duration) return;
+
+    const rect = bar.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const pct = Math.max(0, Math.min(1, clickX / rect.width));
+    audio.currentTime = pct * audio.duration;
+  },
+
+  formatAudioTime(sec) {
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  },
+
+  toggleJingleLyrics() {
+    const box = document.getElementById('jingle-lyrics-container');
+    const btnText = document.getElementById('text-toggle-lyrics');
+    if (!box) return;
+
+    if (box.style.display === 'none') {
+      box.style.display = 'block';
+      if (btnText) btnText.textContent = 'Sembunyikan Lirik';
+    } else {
+      box.style.display = 'none';
+      if (btnText) btnText.textContent = 'Tampilkan Lirik';
+    }
+  },
+
+  openJingleModal() {
+    const modal = document.getElementById('modal-jingle');
+    if (modal) modal.classList.add('open');
+  },
+
+  closeJingleModal() {
+    const modal = document.getElementById('modal-jingle');
+    if (modal) modal.classList.remove('open');
   }
 };
 
