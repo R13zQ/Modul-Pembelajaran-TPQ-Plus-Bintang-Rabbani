@@ -395,97 +395,34 @@ const app = {
       <div class="iqra-page-wrapper" style="display:flex; flex-direction:column; gap:1.5rem; width:100%">
         
         <!-- Header Halaman -->
-        <div style="display:flex; justify-content:space-between; align-items:center; background:#FFF9C4; padding:.75rem 1.2rem; border-radius:12px; border:1px solid #FFF59D; flex-wrap:wrap; gap:.5rem">
-          <div style="font-weight:900; color:#1A237E; font-size:1.05rem">
-            Halaman ${pageData.page}: ${pageData.title}
-          </div>
-          <div style="font-size:.8rem; color:#546e7a; font-weight:800; font-style:italic">
-            ${pageData.intro}
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#FFF9C4; padding:.85rem 1.4rem; border-radius:14px; border:1px solid #FFF59D; flex-wrap:wrap; gap:.5rem">
+          <div>
+            <div style="font-weight:900; color:#1A237E; font-size:1.1rem">
+              Halaman ${pageData.page}: ${pageData.title}
+            </div>
+            <div style="font-size:.8rem; color:#546e7a; font-weight:700; margin-top:.2rem">
+              ${pageData.intro}
+            </div>
           </div>
         </div>
         
-        <!-- Konten Flex: Kiri (Bacaan), Kanan (Referensi) -->
-        <div style="display:flex; gap:1.5rem; flex-wrap:wrap; width:100%">
-          
-          <!-- Kolom Kiri: Papan Bacaan (3 Baris) -->
-          <div style="flex:2; min-width:300px; background:white; border-radius:20px; padding:1.5rem; border:2px solid #E0E0E0; display:flex; flex-direction:column; gap:1.2rem; align-items:stretch">
-            ${pageData.rows.map(row => `
-              <div style="display:flex; justify-content:space-around; align-items:center; padding:1rem .5rem; background:#F8FAFB; border-radius:14px; border:1px solid #ECEFF1; direction:rtl; gap:1rem; flex-wrap:wrap">
-                ${row.map(word => `
-                  <div class="huruf-card" style="background:#FFF; color:#1A237E; border:2px solid #CFD8DC; padding:.75rem 1.5rem; border-radius:12px; font-size:2.8rem; font-weight:bold; cursor:pointer; min-width:80px; text-align:center" onclick="app.playIqraWord('${word.replace(/'/g, "\\'")}', this)">
-                    ${word}
-                  </div>
-                `).join('')}
+        <!-- Papan Bacaan (100% Width) -->
+        <div style="width:100%; background:white; border-radius:20px; padding:1.8rem; border:2px solid #E0E0E0; display:flex; flex-direction:column; gap:1.2rem; align-items:stretch">
+          <div style="font-size:.85rem; color:var(--blue); font-weight:800; text-align:center; margin-bottom:.5rem">
+            👇 Klik mana-mana baris bacaan di bawah ini untuk Tampilan Fullscreen Super Besar & Digeser:
+          </div>
+          ${pageData.rows.map((row, rIdx) => `
+            <div class="iqra-row-card" style="display:flex; justify-content:space-around; align-items:center; padding:1.2rem 1rem; background:#F8FAFB; border-radius:16px; border:2px solid #ECEFF1; direction:rtl; gap:1.5rem; flex-wrap:wrap; cursor:pointer" onclick="app.openIqraPageDeck(${level}, ${pageNum}, ${rIdx})" title="Klik untuk Tampilan Fullscreen Baris ${rIdx + 1}">
+              ${row.map((word) => `
+                <div class="huruf-card" style="background:#FFF; color:#1A237E; border:2px solid #CFD8DC; padding:.85rem 2rem; border-radius:14px; font-size:3rem; font-weight:bold; min-width:90px; text-align:center">
+                  ${word}
+                </div>
+              `).join('')}
+              <div style="direction:ltr; font-size:.72rem; color:var(--blue); font-weight:800; background:#E3F2FD; padding:.3rem .7rem; border-radius:10px; margin-left:auto">
+                🔍 Layar Penuh (Baris ${rIdx + 1})
               </div>
-            `).join('')}
-          </div>
-          
-          <!-- Kolom Kanan: Referensi Huruf -->
-          <div style="flex:1.2; min-width:280px; background:#E3F2FD; border-radius:20px; padding:1.5rem; border:2px solid #BBDEFB; display:flex; flex-direction:column; gap:1rem">
-            <h4 style="margin:0; font-family:'Poppins',sans-serif; font-weight:900; color:#0D47A1; font-size:.95rem; border-bottom:2px solid #BBDEFB; padding-bottom:.5rem">
-              👉 Referensi Huruf Hijaiyah
-            </h4>
-            
-            <div style="display:flex; flex-direction:column; gap:1.2rem; overflow-y:auto; max-height:400px">
-              ${(pageData.lettersIntroduced || []).map(letterChar => {
-                const letterInfo = HIJAIYAH_DATA.huruf.find(h => h.arab === letterChar) || { nama: letterChar, arab: letterChar };
-                const fathahForm = letterChar + 'َ';
-                const kasrahForm = letterChar + 'ِ';
-                const dhammahForm = letterChar + 'ُ';
-                const sukunForm = letterChar + 'ْ';
-                const fathatainForm = letterChar + 'ً';
-                const kasratainForm = letterChar + 'ٍ';
-                const dhammatainForm = letterChar + 'ٌ';
-                const tasydidForm = letterChar + 'ّ';
-                
-                return `
-                  <div style="background:white; border-radius:14px; padding:1rem; border:1px solid #B3E5FC; display:flex; flex-direction:column; gap:.75rem">
-                    <div style="display:flex; justify-content:space-between; align-items:center">
-                      <span style="font-weight:900; color:#0D47A1; font-size:1.1rem">Huruf ${letterInfo.nama}</span>
-                      <span style="font-size:2rem; font-weight:bold; color:#0D47A1">${letterInfo.arab}</span>
-                    </div>
-                    
-                    <!-- Grid 8 Harakat -->
-                    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:.4rem; text-align:center">
-                      <div style="background:#FFF3E0; border:1px solid #FFE0B2; border-radius:8px; padding:.3rem">
-                        <div style="font-size:1.2rem; font-weight:bold">${fathahForm}</div>
-                        <div style="font-size:.65rem; color:#e65100; font-weight:800">Fathah</div>
-                      </div>
-                      <div style="background:#E8F5E9; border:1px solid #C8E6C9; border-radius:8px; padding:.3rem">
-                        <div style="font-size:1.2rem; font-weight:bold">${kasrahForm}</div>
-                        <div style="font-size:.65rem; color:#1b5e20; font-weight:800">Kasrah</div>
-                      </div>
-                      <div style="background:#E3F2FD; border:1px solid #BBDEFB; border-radius:8px; padding:.3rem">
-                        <div style="font-size:1.2rem; font-weight:bold">${dhammahForm}</div>
-                        <div style="font-size:.65rem; color:#0d47a1; font-weight:800">Dhammah</div>
-                      </div>
-                      <div style="background:#F3E5F5; border:1px solid #E1BEE7; border-radius:8px; padding:.3rem">
-                        <div style="font-size:1.2rem; font-weight:bold">${sukunForm}</div>
-                        <div style="font-size:.65rem; color:#4a148c; font-weight:800">Sukun</div>
-                      </div>
-                      <div style="background:#FFFDE7; border:1px solid #FFF9C4; border-radius:8px; padding:.3rem">
-                        <div style="font-size:1.2rem; font-weight:bold">${fathatainForm}</div>
-                        <div style="font-size:.65rem; color:#f57f17; font-weight:800">Fathatain</div>
-                      </div>
-                      <div style="background:#E0F7FA; border:1px solid #B2EBF2; border-radius:8px; padding:.3rem">
-                        <div style="font-size:1.2rem; font-weight:bold">${kasratainForm}</div>
-                        <div style="font-size:.65rem; color:#006064; font-weight:800">Kasratain</div>
-                      </div>
-                      <div style="background:#E8EAF6; border:1px solid #C5CAE9; border-radius:8px; padding:.3rem">
-                        <div style="font-size:1.2rem; font-weight:bold">${dhammatainForm}</div>
-                        <div style="font-size:.65rem; color:#1a237e; font-weight:800">Dhammatain</div>
-                      </div>
-                      <div style="background:#FFEBEE; border:1px solid #FFCDD2; border-radius:8px; padding:.3rem">
-                        <div style="font-size:1.2rem; font-weight:bold">${tasydidForm}</div>
-                        <div style="font-size:.65rem; color:#b71c1c; font-weight:800">Tasydid</div>
-                      </div>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
             </div>
-          </div>
-          
+          `).join('')}
         </div>
         
         <!-- Navigasi Halaman -->
@@ -528,7 +465,7 @@ const app = {
   },
   
   switchIqraMode(bulanNomor, mode, btn) {
-    // Mode selector is deprecated, so we do nothing or fallback
+    // Mode selector is deprecated
   },
   
   playIqraItem(el) {
@@ -550,7 +487,7 @@ const app = {
     
     // Arabic text-to-speech
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel(); // stop current audio first
+      window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(word);
       utterance.lang = 'ar-SA';
       utterance.rate = 0.65;
@@ -568,41 +505,402 @@ const app = {
     } else {
       container = document.querySelector(`.iqra-board-container[data-current-iqra="${level}"]`);
     }
-    if (!container) return;
+    const bulanNomor = container ? container.dataset.bulan : 1;
     
-    const bulanNomor = container.dataset.bulan;
     const board = document.getElementById(`iqra-board-content-${bulanNomor}`);
     if (board) {
       board.innerHTML = this.getIqraContentHtml(level, 'halamanBuku', pageNum);
     }
   },
+
+  openIqraPageDeck(level, pageNum, rowIndex = 0) {
+    if (typeof HIJAIYAH_DATA === 'undefined' || !HIJAIYAH_DATA.iqra) return;
+    const data = HIJAIYAH_DATA.iqra[`iqra${level}`];
+    if (!data || !data.pages) return;
+    const pageData = data.pages.find(p => p.page === pageNum);
+    if (!pageData || !pageData.rows) return;
+
+    this.fsDeck = {
+      type: 'iqra',
+      level: level,
+      pageNum: pageNum,
+      rowIndex: Math.max(0, Math.min(rowIndex, pageData.rows.length - 1)),
+      categoryName: `📖 Iqra ${level} — Halaman ${pageNum}`
+    };
+
+    const modal = document.getElementById('modal-fullscreen-letter');
+    if (modal) modal.classList.add('open');
+
+    this.renderFullscreenLetter();
+    this.initTouchSwipe();
+    this.initKeyboardNav();
+  },
   
-  showHurufDetail(arab) {
-    const huruf = HIJAIYAH_DATA.huruf.find(h => h.arab === arab);
-    if (!huruf) return;
-    const modal = document.getElementById('modal-huruf');
-    document.getElementById('modal-huruf-title').textContent = `Huruf ${huruf.nama}`;
-    document.getElementById('modal-huruf-body').innerHTML = `
-      <div style="text-align:center">
-        <div style="font-size:6rem;direction:rtl;color:${huruf.warna};margin-bottom:1rem">${huruf.arab}</div>
-        <div style="font-size:1.2rem;font-weight:800;color:#1A237E;margin-bottom:.5rem">${huruf.nama}</div>
-        <div style="font-size:1rem;color:#546e7a;margin-bottom:1.5rem">Dibaca: "${huruf.bunyi}"</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">
-          ${huruf.contohKata ? `<div style="background:#F8FAFB;border-radius:14px;padding:1rem;text-align:center">
-            <div style="font-size:2rem">${huruf.emoji}</div>
-            <div style="font-size:1.1rem;direction:rtl;font-weight:700;margin:.3rem 0">${huruf.contohKata}</div>
-            <div style="font-size:.78rem;color:#546e7a;font-weight:700">${huruf.artiKata}</div>
-          </div>` : ''}
-        </div>
-        <div style="background:#F8FAFB;border-radius:14px;padding:1rem;margin-top:1rem">
-          <div style="font-family:'Poppins',sans-serif;font-weight:800;margin-bottom:.75rem">Suku Kata</div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center">
-            ${(huruf.sukukata || []).map(s => `<span style="background:${huruf.warna};color:white;padding:.4rem .8rem;border-radius:20px;font-weight:800">${s}</span>`).join('')}
+  // === FULLSCREEN LETTER VIEWER STATE & METHODS ===
+  fsDeck: {
+    level: 1,
+    pageNum: 1,
+    rowIndex: 0,
+    type: 'hijaiyah',
+    items: [],
+    currentIndex: 0,
+    categoryName: 'Huruf Hijaiyah'
+  },
+
+  openFullscreenDeck(items, startIndex = 0, type = 'hijaiyah', categoryName = 'Huruf') {
+    if (!items || items.length === 0) return;
+    this.fsDeck = {
+      type: type,
+      items: items,
+      currentIndex: Math.max(0, Math.min(startIndex, items.length - 1)),
+      categoryName: categoryName
+    };
+    const modal = document.getElementById('modal-fullscreen-letter');
+    if (modal) modal.classList.add('open');
+    
+    this.renderFullscreenLetter();
+    this.initTouchSwipe();
+    this.initKeyboardNav();
+  },
+
+  closeFullscreenLetter() {
+    const modal = document.getElementById('modal-fullscreen-letter');
+    if (modal) modal.classList.remove('open');
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  },
+
+  nextFullscreenLetter() {
+    if (this.fsDeck.type === 'iqra') {
+      const level = this.fsDeck.level;
+      let pageNum = this.fsDeck.pageNum;
+      let rowIndex = this.fsDeck.rowIndex;
+      
+      const data = HIJAIYAH_DATA.iqra[`iqra${level}`];
+      if (!data || !data.pages) return;
+      const pageData = data.pages.find(p => p.page === pageNum);
+      if (!pageData || !pageData.rows) return;
+
+      if (rowIndex < pageData.rows.length - 1) {
+        this.fsDeck.rowIndex++;
+      } else {
+        // Auto advance to next page!
+        if (pageNum < 32) {
+          this.fsDeck.pageNum++;
+          this.fsDeck.rowIndex = 0;
+          this.navigateIqraPage(level, this.fsDeck.pageNum, null);
+        } else {
+          this.fsDeck.pageNum = 1;
+          this.fsDeck.rowIndex = 0;
+          this.navigateIqraPage(level, 1, null);
+        }
+      }
+      this.renderFullscreenLetter();
+    } else if (this.fsDeck.items && this.fsDeck.items.length > 0) {
+      this.fsDeck.currentIndex = (this.fsDeck.currentIndex + 1) % this.fsDeck.items.length;
+      this.renderFullscreenLetter();
+    }
+  },
+
+  prevFullscreenLetter() {
+    if (this.fsDeck.type === 'iqra') {
+      const level = this.fsDeck.level;
+      let pageNum = this.fsDeck.pageNum;
+      let rowIndex = this.fsDeck.rowIndex;
+
+      if (rowIndex > 0) {
+        this.fsDeck.rowIndex--;
+      } else {
+        // Auto go back to previous page!
+        if (pageNum > 1) {
+          this.fsDeck.pageNum--;
+          const data = HIJAIYAH_DATA.iqra[`iqra${level}`];
+          const prevPageData = data ? data.pages.find(p => p.page === this.fsDeck.pageNum) : null;
+          this.fsDeck.rowIndex = prevPageData && prevPageData.rows ? prevPageData.rows.length - 1 : 0;
+          this.navigateIqraPage(level, this.fsDeck.pageNum, null);
+        } else {
+          this.fsDeck.pageNum = 32;
+          const data = HIJAIYAH_DATA.iqra[`iqra${level}`];
+          const prevPageData = data ? data.pages.find(p => p.page === 32) : null;
+          this.fsDeck.rowIndex = prevPageData && prevPageData.rows ? prevPageData.rows.length - 1 : 0;
+          this.navigateIqraPage(level, 32, null);
+        }
+      }
+      this.renderFullscreenLetter();
+    } else if (this.fsDeck.items && this.fsDeck.items.length > 0) {
+      this.fsDeck.currentIndex = (this.fsDeck.currentIndex - 1 + this.fsDeck.items.length) % this.fsDeck.items.length;
+      this.renderFullscreenLetter();
+    }
+  },
+
+  renderFullscreenLetter() {
+    const deck = this.fsDeck;
+    const catEl = document.getElementById('fs-letter-category');
+    const countEl = document.getElementById('fs-letter-counter');
+    const contentEl = document.getElementById('fs-letter-content');
+    
+    if (!contentEl) return;
+    
+    let html = '';
+    
+    if (deck.type === 'hijaiyah') {
+      const item = deck.items[deck.currentIndex];
+      if (!item) return;
+      if (catEl) catEl.textContent = deck.categoryName;
+      if (countEl) countEl.textContent = `${deck.currentIndex + 1} / ${deck.items.length}`;
+
+      const color = item.warna || '#FFD600';
+      html = `
+        <div class="fs-letter-main" style="color:${color}; font-family:'Amiri', serif">${item.arab}</div>
+        <div class="fs-letter-name">Huruf ${item.nama}</div>
+        <div class="fs-letter-sub">Pelafalan: "${item.bunyi}"</div>
+      `;
+    } else if (deck.type === 'latin') {
+      const item = deck.items[deck.currentIndex];
+      if (!item) return;
+      if (catEl) catEl.textContent = deck.categoryName;
+      if (countEl) countEl.textContent = `${deck.currentIndex + 1} / ${deck.items.length}`;
+
+      const color = item.warna || '#FF6B35';
+      html = `
+        <div class="fs-letter-main" style="color:${color}">${item.huruf} <span style="font-size:0.65em; opacity:0.8">${item.hurufKecil}</span></div>
+        <div class="fs-letter-name">Huruf ${item.huruf} (${item.hurufKecil})</div>
+        <div class="fs-letter-sub">Sebutan: "${item.bunyi}"</div>
+      `;
+    } else if (deck.type === 'angka') {
+      const item = deck.items[deck.currentIndex];
+      if (!item) return;
+      if (catEl) catEl.textContent = deck.categoryName;
+      if (countEl) countEl.textContent = `${deck.currentIndex + 1} / ${deck.items.length}`;
+
+      const color = item.warna || '#00C896';
+      html = `
+        <div class="fs-letter-main" style="color:${color}">${item.angka} <span style="font-size:0.5em; opacity:0.75">(${item.arab})</span></div>
+        <div class="fs-letter-name">Angka ${item.angka} (${item.latin})</div>
+        <div class="fs-letter-sub">Angka Arab: ${item.arab}</div>
+      `;
+    } else if (deck.type === 'iqra') {
+      const data = HIJAIYAH_DATA.iqra[`iqra${deck.level}`];
+      const pageData = data ? data.pages.find(p => p.page === deck.pageNum) : null;
+      if (!pageData || !pageData.rows) return;
+
+      const rowIndex = Math.min(deck.rowIndex, pageData.rows.length - 1);
+      const row = pageData.rows[rowIndex] || [];
+
+      if (catEl) catEl.textContent = `📖 Iqra ${deck.level} — Halaman ${deck.pageNum}`;
+      if (countEl) countEl.textContent = `Halaman ${deck.pageNum} dari 32 (Baris ${rowIndex + 1} / ${pageData.rows.length})`;
+
+      html = `
+        <div class="fs-iqra-landscape-page">
+          <!-- Banner Baris -->
+          <div style="font-size:1rem; color:#FFF9C4; font-weight:800; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.28); padding:.5rem 2rem; border-radius:24px; font-family:'Poppins',sans-serif">
+            Halaman ${pageData.page} — Baris ${rowIndex + 1}: ${pageData.title}
+          </div>
+
+          <!-- Tampilan 1 Baris (Konsep Landscape Page Frame) -->
+          <div class="fs-iqra-row-container" style="display:flex; justify-content:center; align-items:center; gap:2rem; direction:rtl; flex-wrap:wrap; background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.25); border-radius:32px; box-shadow:0 16px 48px rgba(0,0,0,0.35)">
+            ${row.map(word => `
+              <div class="fs-iqra-card" style="background:white; color:#1A237E; border-radius:24px; padding:1rem 2rem; font-size:9.75rem; font-weight:bold; font-family:'Amiri', serif; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.22); min-width:125px">
+                ${word}
+              </div>
+            `).join('')}
           </div>
         </div>
-      </div>
-    `;
-    modal.classList.add('open');
+      `;
+    } else if (deck.type === 'metodeMembaca') {
+      const item = deck.items[deck.currentIndex];
+      if (!item) return;
+      if (catEl) catEl.textContent = deck.categoryName;
+      if (countEl) countEl.textContent = `${deck.currentIndex + 1} / ${deck.items.length}`;
+
+      const color = item.warna || '#FF6B35';
+      const textLen = (item.sukuKata || item.kata).length;
+      const fontSizeStr = textLen > 30 ? '2.8rem' : textLen > 20 ? '3.8rem' : textLen > 12 ? '5.2rem' : '7.5rem';
+
+      html = `
+        <div class="fs-iqra-landscape-page">
+          <!-- Banner Pola -->
+          <div style="font-size:1rem; color:#FFF9C4; font-weight:800; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.28); padding:.5rem 2rem; border-radius:24px; font-family:'Poppins',sans-serif">
+            ${item.pola || 'Metode Latihan Membaca'}
+          </div>
+
+          <!-- Tampilan Layar Penuh SAMA PERSIS dengan Kartu (Landscape Wide) -->
+          <div class="fs-iqra-row-container" style="display:flex; flex-direction:column; justify-content:center; align-items:center; gap:1.2rem; background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.25); border-radius:32px; box-shadow:0 16px 48px rgba(0,0,0,0.35); width:100%; max-width:1250px; padding:2rem 3rem">
+            <div style="font-size:3.5rem; margin-bottom:-0.5rem">${item.emoji}</div>
+            <div class="fs-iqra-card" style="background:white; color:${color}; border-radius:24px; padding:1.2rem 2.5rem; font-size:${fontSizeStr} !important; font-weight:900; font-family:'Poppins', sans-serif; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.22); width:100%; word-break:break-word; line-height:1.3">
+              ${item.sukuKata || item.kata}
+            </div>
+            <div style="font-size:1.8rem; font-weight:800; color:#FFFFFF; font-family:'Poppins',sans-serif; text-shadow:0 2px 8px rgba(0,0,0,0.4)">
+              "${item.kata}"
+            </div>
+            <div style="font-size:1.15rem; color:#FFF9C4; background:rgba(0,0,0,0.35); padding:0.6rem 1.8rem; border-radius:20px; font-weight:600; font-family:'Poppins',sans-serif; max-width:900px; text-align:center">
+              💡 ${item.arti}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    contentEl.innerHTML = html;
+  },
+
+  openHijaiyahDeck(startIndex = 0) {
+    if (typeof HIJAIYAH_DATA !== 'undefined' && HIJAIYAH_DATA.huruf) {
+      this.openFullscreenDeck(HIJAIYAH_DATA.huruf, startIndex, 'hijaiyah', '🕌 Huruf Hijaiyah');
+    }
+  },
+
+  openHijaiyahDeckByChar(char) {
+    if (typeof HIJAIYAH_DATA !== 'undefined' && HIJAIYAH_DATA.huruf) {
+      const idx = HIJAIYAH_DATA.huruf.findIndex(h => h.arab === char || h.arab.includes(char));
+      this.openHijaiyahDeck(idx >= 0 ? idx : 0);
+    }
+  },
+
+  openVokalDeck(hurufStr) {
+    if (typeof CALISTUNG_DATA !== 'undefined' && CALISTUNG_DATA.hurufIndonesia) {
+      const vokalList = ['A','I','U','E','O'].map(v => CALISTUNG_DATA.hurufIndonesia.find(h => h.huruf === v)).filter(Boolean);
+      const idx = vokalList.findIndex(h => h.huruf === hurufStr);
+      this.openFullscreenDeck(vokalList, idx >= 0 ? idx : 0, 'latin', '🔤 Huruf Vokal Mandiri (A, I, U, E, O)');
+    }
+  },
+
+  openLatinDeck(hurufStr) {
+    if (typeof CALISTUNG_DATA !== 'undefined' && CALISTUNG_DATA.hurufIndonesia) {
+      const idx = CALISTUNG_DATA.hurufIndonesia.findIndex(h => h.huruf === hurufStr);
+      this.openFullscreenDeck(CALISTUNG_DATA.hurufIndonesia, idx >= 0 ? idx : 0, 'latin', '🔤 Huruf Alphabet Indonesia (A - Z)');
+    }
+  },
+
+  openAngkaDeck(angkaNum) {
+    if (angkaNum >= 1 && angkaNum <= 10) {
+      this.openAngkaPuluhanDeck(angkaNum);
+    } else if (typeof CALISTUNG_DATA !== 'undefined' && CALISTUNG_DATA.angka) {
+      const idx = CALISTUNG_DATA.angka.findIndex(a => a.angka === angkaNum);
+      this.openFullscreenDeck(CALISTUNG_DATA.angka, idx >= 0 ? idx : 0, 'angka', '🔢 Angka / Bilangan');
+    }
+  },
+
+  openAngkaPuluhanDeck(num) {
+    const startNum = num * 10;
+    const endNum = startNum + 9;
+    const items = [];
+    const colors = ['#FF6B35', '#FF8C42', '#00C896', '#29B6F6', '#9C27B0', '#FF4081', '#00BCD4', '#FFD600', '#FF5722', '#7C4DFF'];
+    const emojis = ['🍎', '⭐', '🐟', '🌸', '🍌', '🌴', '🍇', '🍊', '🍓', '🎈'];
+    
+    for (let n = startNum; n <= endNum; n++) {
+      const existing = typeof CALISTUNG_DATA !== 'undefined' && CALISTUNG_DATA.angka ? CALISTUNG_DATA.angka.find(a => a.angka === n) : null;
+      if (existing) {
+        items.push(existing);
+      } else {
+        items.push({
+          angka: n,
+          latin: this.toIndonesianSpelling(n),
+          arab: this.toArabicDigits(n),
+          emoji: emojis[n % emojis.length],
+          warna: colors[n % colors.length]
+        });
+      }
+    }
+    
+    this.openFullscreenDeck(items, 0, 'angka', `🔢 Bilangan Puluhan (${startNum} - ${endNum})`);
+  },
+
+  toArabicDigits(n) {
+    const digits = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+    return n.toString().split('').map(d => digits[parseInt(d)] || d).join('');
+  },
+
+  toIndonesianSpelling(num) {
+    const satuan = ['', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan'];
+    if (num < 10) return satuan[num];
+    if (num === 10) return 'Sepuluh';
+    if (num === 11) return 'Sebelas';
+    if (num < 20) return satuan[num % 10] + ' Belas';
+    if (num < 100) {
+      const puluhan = Math.floor(num / 10);
+      const s = num % 10;
+      return satuan[puluhan] + ' Puluh' + (s ? ' ' + satuan[s] : '');
+    }
+    if (num === 100) return 'Seratus';
+    if (num < 110) {
+      const s = num % 10;
+      return 'Seratus' + (s ? ' ' + satuan[s] : '');
+    }
+    return num.toString();
+  },
+
+  openMetodeMembacaDeck(metodeIndex = 0, itemIndex = 0) {
+    if (typeof CALISTUNG_DATA !== 'undefined' && CALISTUNG_DATA.metodeMembaca) {
+      const metode = CALISTUNG_DATA.metodeMembaca[metodeIndex];
+      if (!metode || !metode.contoh) return;
+      this.openFullscreenDeck(metode.contoh, itemIndex, 'metodeMembaca', `📖 ${metode.nama}`);
+    }
+  },
+
+  switchMetodeMembaca(bulanNomor, metodeIdx) {
+    this.currentMetodeIdx = metodeIdx;
+    if (typeof KURIKULUM_DATA !== 'undefined' && KURIKULUM_DATA.bulanList) {
+      const bulan = KURIKULUM_DATA.bulanList.find(b => b.nomor === bulanNomor);
+      if (bulan) {
+        const calEl = document.getElementById(`calistung-content-${bulanNomor}`);
+        if (calEl) calEl.innerHTML = this.renderCalistungTab(bulan);
+      }
+    }
+  },
+
+  speakText(text, lang = 'id-ID') {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.rate = 0.8;
+      window.speechSynthesis.speak(utterance);
+    }
+  },
+
+  initTouchSwipe() {
+    const modal = document.getElementById('modal-fullscreen-letter');
+    if (!modal || modal.dataset.touchInited) return;
+    modal.dataset.touchInited = 'true';
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    modal.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    modal.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const swipeDistance = touchEndX - touchStartX;
+      if (swipeDistance < -40) {
+        app.nextFullscreenLetter();
+      } else if (swipeDistance > 40) {
+        app.prevFullscreenLetter();
+      }
+    }, { passive: true });
+  },
+
+  initKeyboardNav() {
+    if (window._fsKeyHandlerInited) return;
+    window._fsKeyHandlerInited = true;
+
+    window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('modal-fullscreen-letter');
+      if (modal && modal.classList.contains('open')) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          app.nextFullscreenLetter();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          app.prevFullscreenLetter();
+        } else if (e.key === 'Escape') {
+          app.closeFullscreenLetter();
+        }
+      }
+    });
+  },
+
+  showHurufDetail(arab) {
+    this.openHijaiyahDeckByChar(arab);
   },
   
   // === RENDER CALISTUNG TAB ===
@@ -610,63 +908,139 @@ const app = {
     const num = bulan.nomor;
     let html = `<h3 style="font-family:'Poppins',sans-serif;font-weight:800;color:#1A237E;margin-bottom:1rem">✏️ Calistung — ${bulan.targetCalistung}</h3>`;
     
-    // Filter Huruf Indonesia
-    let letters = [];
-    if (num === 1) {
-      letters = ['A','I','U','E','O'].map(v => CALISTUNG_DATA.hurufIndonesia.find(h => h.huruf === v)).filter(Boolean);
-    } else if (num === 2) {
-      letters = CALISTUNG_DATA.hurufIndonesia.filter(h => ['B','C','D'].includes(h.huruf));
-    } else if (num === 3) {
-      letters = CALISTUNG_DATA.hurufIndonesia.filter(h => ['F','G','H'].includes(h.huruf));
-    } else if (num === 4) {
-      letters = CALISTUNG_DATA.hurufIndonesia.filter(h => ['J','K','L','M'].includes(h.huruf));
-    } else if (num === 5) {
-      letters = CALISTUNG_DATA.hurufIndonesia.filter(h => ['N','P','Q','R'].includes(h.huruf));
-    } else if (num === 6) {
-      letters = CALISTUNG_DATA.hurufIndonesia.filter(h => ['S','T','U','V'].includes(h.huruf));
-    } else if (num === 7) {
-      letters = CALISTUNG_DATA.hurufIndonesia.filter(h => ['W','X','Y','Z'].includes(h.huruf));
-    }
-    
-    if (letters.length > 0) {
-      html += `<h4 style="font-weight:800;margin:1.5rem 0 .75rem;color:#546e7a">🔤 Huruf Indonesia Bulan Ini</h4>`;
+    if (typeof CALISTUNG_DATA !== 'undefined' && CALISTUNG_DATA.hurufIndonesia) {
+      // 1. HURUF VOKAL MANDIRI (A, I, U, E, O)
+      const vokalList = ['A','I','U','E','O'].map(v => CALISTUNG_DATA.hurufIndonesia.find(h => h.huruf === v)).filter(Boolean);
+      html += `<h4 style="font-weight:800;margin:1.5rem 0 .75rem;color:#546e7a">🔤 Huruf Vokal Mandiri (A, I, U, E, O) <span style="font-size:.78rem; font-weight:normal; color:var(--blue); margin-left:.5rem">(Klik untuk Layar Penuh A,I,U,E,O)</span></h4>`;
       html += `<div class="huruf-indo-grid">`;
-      letters.forEach(h => {
+      vokalList.forEach(h => {
         html += `
-          <div class="huruf-indo-card" style="border-top:3px solid ${h.warna}">
+          <div class="huruf-indo-card" style="border-top:3px solid ${h.warna}; cursor:pointer" onclick="app.openVokalDeck('${h.huruf}')" title="Klik untuk Tampilan Layar Penuh Vokal A,I,U,E,O">
             <div class="huruf-besar" style="color:${h.warna}">${h.huruf}</div>
             <div class="huruf-kecil" style="color:${h.warna}">${h.hurufKecil}</div>
             <div class="huruf-contoh-grid">
               ${h.contoh.map(c => `<div class="huruf-contoh-item">${c.emoji}<div class="huruf-contoh-kata">${c.sukuKata}</div></div>`).join('')}
             </div>
+            <div class="full-click-badge">🔍 Layar Penuh</div>
           </div>
         `;
       });
       html += `</div>`;
-    }
-    
-    // Filter Angka
-    let numbers = [];
-    if (num === 1) numbers = CALISTUNG_DATA.angka.slice(0, 5);
-    else if (num === 2) numbers = CALISTUNG_DATA.angka.slice(5, 10);
-    else if (num === 3) numbers = CALISTUNG_DATA.angka.slice(10, 15);
-    else if (num === 4) numbers = CALISTUNG_DATA.angka.slice(15, 20);
-    else if (num === 5) numbers = CALISTUNG_DATA.angka.slice(20, 25);
-    else if (num === 6) numbers = CALISTUNG_DATA.angka.slice(25, 30);
-    
-    if (numbers.length > 0) {
-      html += `<h4 style="font-weight:800;margin:1.5rem 0 .75rem;color:#546e7a">🔢 Angka yang Dipelajari</h4>`;
-      html += `<div class="angka-grid">`;
-      numbers.forEach(a => {
+
+      // 2. SELURUH HURUF A SAMPAI Z (DILAYAR SEBELUM DIKLIK & FULLSCREEN SETELAH DIKLIK, DIBAWAH A,I,U,E,O)
+      html += `<h4 style="font-weight:800;margin:2rem 0 .75rem;color:#546e7a">🔤 Huruf Alphabet Indonesia (A sampai Z) <span style="font-size:.78rem; font-weight:normal; color:var(--blue); margin-left:.5rem">(Klik huruf untuk Layar Penuh A-Z & Digeser)</span></h4>`;
+      html += `<div class="huruf-indo-grid">`;
+      CALISTUNG_DATA.hurufIndonesia.forEach(h => {
         html += `
-          <div class="angka-card" style="border-top:3px solid ${a.warna}">
-            <div class="angka-besar" style="color:${a.warna}">${a.angka}</div>
-            <div class="angka-kata">${a.latin}</div>
-            <div class="angka-visual">${a.emoji.repeat(Math.min(a.angka, 8))}</div>
+          <div class="huruf-indo-card" style="border-top:3px solid ${h.warna}; cursor:pointer" onclick="app.openLatinDeck('${h.huruf}')" title="Klik untuk Tampilan Layar Penuh Alphabet A-Z">
+            <div class="huruf-besar" style="color:${h.warna}">${h.huruf}</div>
+            <div class="huruf-kecil" style="color:${h.warna}">${h.hurufKecil}</div>
+            <div class="huruf-contoh-grid">
+              ${h.contoh.map(c => `<div class="huruf-contoh-item">${c.emoji}<div class="huruf-contoh-kata">${c.sukuKata}</div></div>`).join('')}
+            </div>
+            <div class="full-click-badge">🔍 Layar Penuh</div>
           </div>
         `;
       });
       html += `</div>`;
+
+      // 3. ANGKA 1 SAMPAI 10 DILAYAR (KLIK FULLSCREEN -> MENAMPILKAN KELOMPOK PULUHAN 10-19, 20-29, DLL)
+      const numbers1to10 = CALISTUNG_DATA.angka ? CALISTUNG_DATA.angka.slice(0, 10) : [];
+      if (numbers1to10.length > 0) {
+        html += `<h4 style="font-weight:800;margin:2rem 0 .75rem;color:#546e7a">🔢 Angka 1 sampai 10 <span style="font-size:.78rem; font-weight:normal; color:var(--blue); margin-left:.5rem">(Klik angka untuk Layar Penuh Kelompok Puluhan, misal: 2 → 20..29)</span></h4>`;
+        html += `<div class="angka-grid">`;
+        numbers1to10.forEach(a => {
+          const startP = a.angka * 10;
+          const endP = startP + 9;
+          html += `
+            <div class="angka-card" style="border-top:3px solid ${a.warna}; cursor:pointer" onclick="app.openAngkaPuluhanDeck(${a.angka})" title="Klik untuk Fullscreen Puluhan ${startP}-${endP}">
+              <div class="angka-besar" style="color:${a.warna}">${a.angka}</div>
+              <div class="angka-kata">${a.latin}</div>
+              <div class="angka-visual">${a.emoji.repeat(Math.min(a.angka, 8))}</div>
+              <div class="full-click-badge">🔍 Fullscreen ${startP}-${endP}</div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+    }
+
+    // === METODE LATIHAN MEMBACA SECTION (SEKARANG BERADA DIBAWAH HURUF & ANGKA) ===
+    if (typeof CALISTUNG_DATA !== 'undefined' && CALISTUNG_DATA.metodeMembaca) {
+      const activeMetodeIdx = this.currentMetodeIdx || 0;
+      const m = CALISTUNG_DATA.metodeMembaca[activeMetodeIdx] || CALISTUNG_DATA.metodeMembaca[0];
+
+      html += `
+        <div style="background:linear-gradient(135deg, #1A237E 0%, #283593 100%); color:white; padding:1.5rem; border-radius:22px; margin:2rem 0; box-shadow:0 8px 24px rgba(26,35,126,0.22)">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1rem">
+            <div>
+              <h4 style="font-size:1.3rem; font-weight:800; color:#FFD600; margin:0; display:flex; align-items:center; gap:0.5rem">
+                📖 Metode Latihan Membaca (6 Metode Belajar)
+              </h4>
+              <p style="font-size:0.88rem; color:#E8EAF6; margin:0.3rem 0 0">
+                Pilih metode di bawah untuk mempelajari 20 contoh interaktif (5 contoh per sub-bagian). Klik kartu untuk <b>Tampilan Layar Penuh</b>.
+              </p>
+            </div>
+            <div style="background:#FFD600; color:#1A237E; font-size:0.8rem; font-weight:900; padding:0.4rem 0.9rem; border-radius:20px">
+              ✨ 120 Contoh Interaktif Total
+            </div>
+          </div>
+
+          <!-- Selector Buttons for 6 Methods -->
+          <div style="display:flex; gap:0.6rem; overflow-x:auto; padding-bottom:0.8rem; margin-bottom:1.2rem; scrollbar-width:thin">
+            ${CALISTUNG_DATA.metodeMembaca.map((method, mIdx) => `
+              <button class="metode-tab-btn ${mIdx === activeMetodeIdx ? 'active' : ''}" 
+                onclick="app.switchMetodeMembaca(${num}, ${mIdx})" 
+                style="background:${mIdx === activeMetodeIdx ? method.warna : 'rgba(255,255,255,0.15)'}; color:white; border:none; padding:0.65rem 1.1rem; border-radius:14px; font-weight:800; font-size:0.88rem; cursor:pointer; white-space:nowrap; transition:all 0.2s; box-shadow:${mIdx === activeMetodeIdx ? '0 4px 12px rgba(0,0,0,0.3)' : 'none'}">
+                ${method.emoji} ${method.nama.split('.')[0]}. ${method.nama.split('.')[1] || method.nama}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Current Active Method Cards Grid -->
+          <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:18px; padding:1.2rem">
+            <div style="margin-bottom:1rem">
+              <span style="background:${m.warna}; color:white; padding:0.3rem 0.85rem; border-radius:12px; font-weight:800; font-size:0.85rem">${m.emoji} ${m.nama}</span>
+              <p style="font-size:0.9rem; color:#E3F2FD; margin:0.5rem 0 0; font-weight:600">${m.deskripsi}</p>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(210px, 1fr)); gap:1rem">
+              ${m.contoh.map((c, cIdx) => `
+                <div style="background:white; color:#1A237E; border-radius:16px; padding:1.1rem; border-top:4px solid ${c.warna}; box-shadow:0 4px 14px rgba(0,0,0,0.12); cursor:pointer; display:flex; flex-direction:column; justify-content:space-between; transition:transform 0.2s" 
+                  onclick="app.openMetodeMembacaDeck(${activeMetodeIdx}, ${cIdx})"
+                  onmouseover="this.style.transform='translateY(-4px)'" 
+                  onmouseout="this.style.transform='translateY(0)'"
+                  title="Klik untuk Tampilan Layar Penuh">
+                  
+                  <div>
+                    <div style="font-size:0.72rem; font-weight:800; color:#546E7A; background:#ECEFF1; padding:0.2rem 0.5rem; border-radius:8px; display:inline-block; margin-bottom:0.4rem">
+                      ${c.pola}
+                    </div>
+                    <div style="font-size:2rem; margin-bottom:0.2rem; text-align:center">${c.emoji}</div>
+                    <div style="font-size:1.3rem; font-weight:900; color:${c.warna}; text-align:center; font-family:'Poppins',sans-serif">
+                      ${c.sukuKata || c.kata}
+                    </div>
+                    <div style="font-size:0.95rem; font-weight:700; color:#37474F; text-align:center; margin-top:0.2rem">
+                      "${c.kata}"
+                    </div>
+                  </div>
+
+                  <div style="margin-top:0.8rem; border-top:1px dashed #CFD8DC; padding-top:0.5rem">
+                    <div style="font-size:0.78rem; color:#546E7A; font-weight:600; line-height:1.3">
+                      💡 ${c.arti}
+                    </div>
+                    <div class="full-click-badge" style="width:100%; text-align:center; margin-top:0.5rem">
+                      🔍 Layar Penuh
+                    </div>
+                  </div>
+
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+        </div>
+      `;
     }
     
     // Filter Suku Kata
