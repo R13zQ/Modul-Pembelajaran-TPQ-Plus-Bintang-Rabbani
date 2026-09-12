@@ -7,7 +7,7 @@ const KURIKULUM_DATA = {
       "warna": "#FF6B35",
       "warnaGradient": "linear-gradient(135deg, #FF6B35, #FFD600)",
       "targetHijaiyah": "Alif-Tsa",
-      "targetCalistung": "Angka 1-5, Huruf A-E",
+      "targetCalistung": "Vokal Mandiri A,I,U,E,O, Huruf A-E, Angka 1-5 & Puluhan Fullscreen, Metode Membaca 1 (Fondasi V & KV)",
       "targetFiqih": "Syahadat & Niat",
       "targetSurat": "Lagu Rukun Islam Ada 5",
       "minggu": [
@@ -15,8 +15,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Alif-Tsa secara audio-visual menarik. Latihan dasar Angka 1-5.",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Alif-Tsa."
+            "aplikasi": "Pengenalan Alif-Tsa. Vokal Mandiri A,I,U,E,O (Full Screen 5 Slide), Angka 1-5 & Puluhan 10-19. Metode Membaca 1 Sub-1 (Vokal Mandiri V: Aku, Ubi, Ibu, Ada, Apa).",
+            "cetak": "Lembar tracing garis bantu & latihan membaca Vokal Mandiri [V]."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -33,8 +33,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Alif-Tsa dengan harakat fathah/dasar. Pengenalan  Huruf A-E.",
-            "cetak": "Mewarnai huruf/angka Angka 1-5, Huruf A-E."
+            "aplikasi": "Alif-Tsa Fathah. Huruf A-E, Angka 2 & Fullscreen Puluhan 20-29. Metode Membaca 1 Sub-2 (Konsonan-Vokal KV: Batu, Kuda, Buku, Bola, Sapi).",
+            "cetak": "Mewarnai & tracing suku kata KV."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -51,8 +51,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Alif-Tsa secara cepat. Game berhitung visual Angka 1-5, Huruf A-E.",
-            "cetak": "Latihan soal tulis mandiri Angka 1-5, Huruf A-E."
+            "aplikasi": "Alif-Tsa Sambung. Angka 3-4 & Fullscreen Puluhan 30-49. Metode Membaca 1 Sub-3 (Pola KV-KV 2 Segmen: Pena, Pipi, Roti, Kaki, Mata).",
+            "cetak": "Latihan membaca & menulis suku kata KV-KV."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -69,8 +69,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Alif-Tsa & Angka 1-5, Huruf A-E persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Alif-Tsa, Angka 5 & Fullscreen Puluhan 50-59. Metode Membaca 1 Sub-4 (Pola KV-KV-KV 3 Segmen: Sepeda, Kemeja, Melati, Kereta, Sepatu).",
+            "cetak": "Lembar review membaca Layar Penuh KV-KV-KV."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -134,7 +134,7 @@ const KURIKULUM_DATA = {
       "warna": "#FFD600",
       "warnaGradient": "linear-gradient(135deg, #FFD600, #00C896)",
       "targetHijaiyah": "Jim-Kha",
-      "targetCalistung": "Angka 6-10, Huruf F-J",
+      "targetCalistung": "Huruf F-J, Alphabet A-Z, Angka 6-10 & Puluhan 60-100 Fullscreen, Metode Membaca 1 (Pola KV-KV & KV-KV-KV)",
       "targetFiqih": "Wudhu (Tangan-Muka)",
       "targetSurat": "Lagu Bismillah - Alhamdulillah",
       "minggu": [
@@ -142,8 +142,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Jim-Kha secara audio-visual menarik. Latihan dasar Angka 6-10.",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Jim-Kha."
+            "aplikasi": "Pengenalan Jim-Kha. Pendalaman Alphabet A-Z (Full Screen 26 Slide), Angka 6 & Puluhan 60-69. Metode Membaca 1 (Vokal Mandiri & KV).",
+            "cetak": "Lembar tracing Jim-Kha & membaca V & KV."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -160,8 +160,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Jim-Kha dengan harakat fathah/dasar. Pengenalan  Huruf F-J.",
-            "cetak": "Mewarnai huruf/angka Angka 6-10, Huruf F-J."
+            "aplikasi": "Membaca Jim-Kha Fathah. Huruf F-J, Angka 7-8 & Puluhan 70-89. Metode Membaca 1 (Pola KV-KV 2 Segmen: Batu, Kuda, Pena, Roti).",
+            "cetak": "Mewarnai & membaca pola KV-KV."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -178,8 +178,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Jim-Kha secara cepat. Game berhitung visual Angka 6-10, Huruf F-J.",
-            "cetak": "Latihan soal tulis mandiri Angka 6-10, Huruf F-J."
+            "aplikasi": "Jim-Kha Sambung. Angka 9-10 & Puluhan 90-109. Metode Membaca 1 (Pola KV-KV-KV 3 Segmen: Sepeda, Kemeja, Sepatu).",
+            "cetak": "Latihan soal tulis mandiri suku kata KV-KV-KV."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -196,8 +196,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Jim-Kha & Angka 6-10, Huruf F-J persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Jim-Kha, Alphabet A-Z & Angka 1-10 Puluhan Fullscreen. Evaluasi Pekan Metode Membaca 1.",
+            "cetak": "Review motorik halus & membaca Layar Penuh."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -261,7 +261,7 @@ const KURIKULUM_DATA = {
       "warna": "#00C896",
       "warnaGradient": "linear-gradient(135deg, #00C896, #29B6F6)",
       "targetHijaiyah": "Dal-Zai",
-      "targetCalistung": "Angka 11-15, Huruf K-O",
+      "targetCalistung": "Huruf K-O, Angka 11-15, Metode Membaca 2 (Struktur Suku Kata Tertutup: Nasal [-n, -m] & VK)",
       "targetFiqih": "Wudhu (Rambut-Kaki)",
       "targetSurat": "Lagu Alif Ba Ta",
       "minggu": [
@@ -269,8 +269,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Dal-Zai secara audio-visual menarik. Latihan dasar Angka 11-15.",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Dal-Zai."
+            "aplikasi": "Pengenalan Dal-Zai. Angka 11-15 & Metode Membaca 2 Sub-1 (Konsonan Penutup Nasal [-n, -m]: Pohon, Daun, Minum, Jarum, Kolam).",
+            "cetak": "Lembar tracing Dal-Zai & membaca Pola VK."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -287,8 +287,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Dal-Zai dengan harakat fathah/dasar. Pengenalan  Huruf K-O.",
-            "cetak": "Mewarnai huruf/angka Angka 11-15, Huruf K-O."
+            "aplikasi": "Dal-Zai Fathah. Huruf K-O & Metode Membaca 2 Sub-5 (Variasi VK & KVK: Air, Rumah, Sampai, Lampu, Domba).",
+            "cetak": "Mewarnai & membaca koda Nasal -n."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -305,8 +305,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Dal-Zai secara cepat. Game berhitung visual Angka 11-15, Huruf K-O.",
-            "cetak": "Latihan soal tulis mandiri Angka 11-15, Huruf K-O."
+            "aplikasi": "Dal-Zai Sambung. Game Berhitung Angka 11-15 & Latihan Membaca Interaktif 6 Metode (Struktur Suku Kata Koda).",
+            "cetak": "Latihan menulis mandiri koda Nasal -m."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -323,8 +323,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Dal-Zai & Angka 11-15, Huruf K-O persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Dal-Zai, Huruf K-O & Metode Membaca 2 (Koda Nasal & VK). Ujian Digital Pekan 4.",
+            "cetak": "Review membaca Layar Penuh Koda VK & Nasal."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -388,7 +388,7 @@ const KURIKULUM_DATA = {
       "warna": "#29B6F6",
       "warnaGradient": "linear-gradient(135deg, #29B6F6, #9C27B0)",
       "targetHijaiyah": "Sin-Dhad",
-      "targetCalistung": "Angka 16-20, Huruf P-T",
+      "targetCalistung": "Huruf P-T, Angka 16-20, Metode Membaca 2 (Koda Likuida [-r, -l], Desis [-s] & Plosif [-k, -t, -p])",
       "targetFiqih": "Gerakan Sholat (Takbir-Ruku')",
       "targetSurat": "Lagu 25 Nama Nabi & Rasul",
       "minggu": [
@@ -396,8 +396,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Sin-Dhad secara audio-visual menarik. Latihan dasar Angka 16-20.",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Sin-Dhad."
+            "aplikasi": "Pengenalan Sin-Syin. Angka 16-20 & Metode Membaca 2 Sub-2 (Likuida/Getar [-r, -l]: Pasar, Kasur, Botol, Mobil, Kapal).",
+            "cetak": "Lembar tracing Sin-Syin & membaca Likuida -r, -l."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -414,8 +414,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Sin-Dhad dengan harakat fathah/dasar. Pengenalan  Huruf P-T.",
-            "cetak": "Mewarnai huruf/angka Angka 16-20, Huruf P-T."
+            "aplikasi": "Sin-Syin Fathah. Huruf P-T & Metode Membaca 2 Sub-3 (Desis [-s]: Kipas, Nanas, Beras, Gelar, Pedas).",
+            "cetak": "Mewarnai & membaca koda Desis -s."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -432,8 +432,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Sin-Dhad secara cepat. Game berhitung visual Angka 16-20, Huruf P-T.",
-            "cetak": "Latihan soal tulis mandiri Angka 16-20, Huruf P-T."
+            "aplikasi": "Sin-Syin Sambung. Metode Membaca 2 Sub-4 (Plosif Keras [-k, -t, -p]: Bapak, Cicak, Laut, Dompet, Atap).",
+            "cetak": "Latihan soal tulis koda Plosif Keras."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -450,8 +450,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Sin-Dhad & Angka 16-20, Huruf P-T persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Sin-Syin, Huruf P-T & Metode Membaca 2 (Likuida, Desis & Plosif). Ujian Akhir Bulanan 4.",
+            "cetak": "Lembar review membaca Layar Penuh Struktur Koda."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -515,7 +515,7 @@ const KURIKULUM_DATA = {
       "warna": "#9C27B0",
       "warnaGradient": "linear-gradient(135deg, #9C27B0, #FF4081)",
       "targetHijaiyah": "Tha-Ghain",
-      "targetCalistung": "Angka 21-30, Huruf U-Z",
+      "targetCalistung": "Huruf U-Z, Angka 21-25, Metode Membaca 3 (Kompleksitas Digraf [ng, ny] & Diftong [ai, au, oi])",
       "targetFiqih": "Gerakan Sholat (Sujud-Salam)",
       "targetSurat": "Lagu Ayo Sholat",
       "minggu": [
@@ -523,8 +523,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Tha-Ghain secara audio-visual menarik. Latihan dasar Angka 21-30.",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Tha-Ghain."
+            "aplikasi": "Pengenalan Shod-Dhod. Angka 21-25 & Metode Membaca 3 Sub-1 (Digraf Sengau Rangkap [ng, ny]: Bunga, Singa, Bintang, Nyanyi, Nyamuk).",
+            "cetak": "Lembar tracing Shod-Dhod & membaca Digraf ng, ny."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -541,8 +541,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Tha-Ghain dengan harakat fathah/dasar. Pengenalan  Huruf U-Z.",
-            "cetak": "Mewarnai huruf/angka Angka 21-30, Huruf U-Z."
+            "aplikasi": "Shod-Dhod Fathah. Huruf U-Z & Metode Membaca 3 Sub-2 (Vokal Luncuran Diftong [ai, au, oi]: Pandai, Tupai, Harimau, Kalau, Amboy).",
+            "cetak": "Mewarnai & membaca Diftong ai."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -559,8 +559,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Tha-Ghain secara cepat. Game berhitung visual Angka 21-30, Huruf U-Z.",
-            "cetak": "Latihan soal tulis mandiri Angka 21-30, Huruf U-Z."
+            "aplikasi": "Shod-Dhod Sambung. Game Berhitung Angka 21-25 & Latihan Membaca Interaktif Digraf & Diftong.",
+            "cetak": "Latihan soal tulis Diftong au, oi."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -577,8 +577,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Tha-Ghain & Angka 21-30, Huruf U-Z persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Shod-Dhod, Huruf U-Z & Metode Membaca 3 (Digraf & Diftong). Ujian Digital Pekan 4.",
+            "cetak": "Lembar review membaca Layar Penuh Digraf & Diftong."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -642,7 +642,7 @@ const KURIKULUM_DATA = {
       "warna": "#FF4081",
       "warnaGradient": "linear-gradient(135deg, #FF4081, #00BCD4)",
       "targetHijaiyah": "Fa-Lam",
-      "targetCalistung": "Logika Penjumlahan (1-10)",
+      "targetCalistung": "Angka 26-30, Logika Penjumlahan, Metode Membaca 3 (Hiatus Vokal & Multisilabel 4 Suku Kata)",
       "targetFiqih": "Hafalan Doa Harian",
       "targetSurat": "Lagu Arti Puasa",
       "minggu": [
@@ -650,8 +650,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Fa-Lam secara audio-visual menarik. Latihan dasar Logika Penjumlahan (1-10).",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Fa-Lam."
+            "aplikasi": "Pengenalan Tho-Zho. Logika Penjumlahan 1-10 & Metode Membaca 3 Sub-3 (Hiatus Vokal Berurutan: Daun, Laut, Kain, Buah, Dua).",
+            "cetak": "Lembar tracing Tho-Zho & membaca Hiatus Vokal."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -668,8 +668,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Fa-Lam dengan harakat fathah/dasar. Pengenalan Logika Penjumlahan (1-10).",
-            "cetak": "Mewarnai huruf/angka Logika Penjumlahan (1-10)."
+            "aplikasi": "Tho-Zho Fathah. Angka 26-30 & Metode Membaca 3 Sub-4 (Kata Multisilabel 4 Suku Kata: Kelelawar, Helikopter, Kacamata, Cenderawasih, Pelangi).",
+            "cetak": "Mewarnai & membaca Multisilabel 4 Suku Kata."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -686,8 +686,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Fa-Lam secara cepat. Game berhitung visual Logika Penjumlahan (1-10).",
-            "cetak": "Latihan soal tulis mandiri Logika Penjumlahan (1-10)."
+            "aplikasi": "Tho-Zho Sambung. Visual Penjumlahan Gambar & Latihan Membaca Interaktif Hiatus & Multisilabel.",
+            "cetak": "Latihan soal tulis Multisilabel 4 Suku Kata."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -704,8 +704,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Fa-Lam & Logika Penjumlahan (1-10) persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Tho-Zho, Penjumlahan & Metode Membaca 3 (Multisilabel 4 Suku Kata). Evaluasi Bulanan 6.",
+            "cetak": "Lembar review membaca Layar Penuh Multisilabel."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -769,7 +769,7 @@ const KURIKULUM_DATA = {
       "warna": "#00BCD4",
       "warnaGradient": "linear-gradient(135deg, #00BCD4, #FF6B35)",
       "targetHijaiyah": "Mim-Ya",
-      "targetCalistung": "Logika Pengurangan (1-10)",
+      "targetCalistung": "Logika Pengurangan (1-10), Metode Membaca 4 (Gugus Konsonan Klaster KKV, KKVK & Prefiks Dasar)",
       "targetFiqih": "Sholat Subuh & Dzuhur",
       "targetSurat": "Lagu Sepohon Kayu",
       "minggu": [
@@ -777,8 +777,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Mim-Ya secara audio-visual menarik. Latihan dasar Logika Pengurangan (1-10).",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Mim-Ya."
+            "aplikasi": "Pengenalan 'Ain-Ghoin. Logika Pengurangan 1-10 & Metode Membaca 4 Sub-1 (Klaster KKV, KKVK: Trompet, Drama, Gratis, Plastik, Sikat).",
+            "cetak": "Lembar tracing 'Ain-Ghoin & membaca Klaster KKV/KKVK."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -795,8 +795,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Mim-Ya dengan harakat fathah/dasar. Pengenalan Logika Pengurangan (1-10).",
-            "cetak": "Mewarnai huruf/angka Logika Pengurangan (1-10)."
+            "aplikasi": "'Ain-Ghoin Fathah. Latihan Pengurangan Gambar & Metode Membaca 4 Sub-2 (Prefiks Dasar [ber-, me-, ter-, di-]: Bermain, Membaca, Tertawa, Ditulis, Berlari).",
+            "cetak": "Mewarnai & membaca Prefiks Ber-, Men-."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -813,8 +813,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Mim-Ya secara cepat. Game berhitung visual Logika Pengurangan (1-10).",
-            "cetak": "Latihan soal tulis mandiri Logika Pengurangan (1-10)."
+            "aplikasi": "'Ain-Ghoin Sambung. Pengurangan 1-10 & Metode Membaca Interaktif Klaster & Prefiks.",
+            "cetak": "Latihan soal tulis Sufiks -an, -kan, -i."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -831,8 +831,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Mim-Ya & Logika Pengurangan (1-10) persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review 'Ain-Ghoin, Pengurangan & Metode Membaca 4 (Klaster & Prefiks). Ujian Digital Pekan 4.",
+            "cetak": "Lembar review membaca Layar Penuh Afiksasi Dasar."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -896,7 +896,7 @@ const KURIKULUM_DATA = {
       "warna": "#FF6B35",
       "warnaGradient": "linear-gradient(135deg, #FF6B35, #00C896)",
       "targetHijaiyah": "Hamzah & Ta Marbuthah",
-      "targetCalistung": "Penjumlahan & Pengurangan (11-20)",
+      "targetCalistung": "Campuran (+ / - 11-20), Metode Membaca 4 (Afiksasi Sufiks Dasar [-an, -kan, -i] & Imbuhan Kombinasi)",
       "targetFiqih": "Sholat Ashar & Maghrib",
       "targetSurat": "Lagu Baju Baru Alhamdulillah",
       "minggu": [
@@ -904,8 +904,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Hamzah & Ta Marbuthah secara audio-visual menarik. Latihan dasar Penjumlahan & Pengurangan (11-20).",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Hamzah & Ta Marbuthah."
+            "aplikasi": "Pengenalan Fa-Qof. Hitung Campuran (+/- 11-20) & Metode Membaca 4 Sub-3 (Sufiks Dasar [-an, -kan, -i]: Makanan, Minuman, Tulisan, Sapuan, Lukisan).",
+            "cetak": "Lembar tracing Fa-Qof & penguatan Klaster."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -922,8 +922,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Hamzah & Ta Marbuthah dengan harakat fathah/dasar. Pengenalan Penjumlahan & Pengurangan (11-20).",
-            "cetak": "Mewarnai huruf/angka Penjumlahan & Pengurangan (11-20)."
+            "aplikasi": "Fa-Qof Fathah. Soal Hitung Campuran & Latihan Membaca Kombinasi Imbuhan Dasar.",
+            "cetak": "Mewarnai & pendalaman Prefiks & Sufiks."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -940,8 +940,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Hamzah & Ta Marbuthah secara cepat. Game berhitung visual Penjumlahan & Pengurangan (11-20).",
-            "cetak": "Latihan soal tulis mandiri Penjumlahan & Pengurangan (11-20)."
+            "aplikasi": "Fa-Qof Sambung. Permainan Matematika 11-20 & Membaca Kata Berimbuhan Lengkap.",
+            "cetak": "Latihan soal tulis Kombinasi Imbuhan."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -958,8 +958,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Hamzah & Ta Marbuthah & Penjumlahan & Pengurangan (11-20) persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Fa-Qof, Hitung Campuran & Metode Membaca 4 (Afiksasi Dasar). Ujian Akhir Bulanan 8.",
+            "cetak": "Lembar review membaca Layar Penuh Gugus Konsonan."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1023,7 +1023,7 @@ const KURIKULUM_DATA = {
       "warna": "#00C896",
       "warnaGradient": "linear-gradient(135deg, #00C896, #9C27B0)",
       "targetHijaiyah": "Harakat (Fathah-Kasrah-Dhammah)",
-      "targetCalistung": "Logika Perkalian Dasar",
+      "targetCalistung": "Logika Perkalian Dasar, Metode Membaca 5 (Otomasi Morfologis: Konfiks Ganda & Peluluhan Fonem)",
       "targetFiqih": "Sholat Isya & Tahajud",
       "targetSurat": "Lagu Sayang Ayah Ibu",
       "minggu": [
@@ -1031,8 +1031,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Harakat (Fathah-Kasrah-Dhammah) secara audio-visual menarik. Latihan dasar Logika Perkalian Dasar.",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Harakat (Fathah-Kasrah-Dhammah)."
+            "aplikasi": "Pengenalan Kaf-Lam. Konsep Perkalian Dasar & Metode Membaca 5 Sub-1 (Konfiks Ganda: Pencegahan, Pembacaan, Makanan, Pelajaran, Pembangunan).",
+            "cetak": "Lembar tracing Kaf-Lam & membaca Konfiks Ganda."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1049,8 +1049,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Harakat (Fathah-Kasrah-Dhammah) dengan harakat fathah/dasar. Pengenalan Logika Perkalian Dasar.",
-            "cetak": "Mewarnai huruf/angka Logika Perkalian Dasar."
+            "aplikasi": "Kaf-Lam Fathah. Perkalian Visual Emoji & Metode Membaca 5 Sub-2 (Peluluhan Fonem Morfemis [meN-, peN-]: Menulis, Menyapu, Memukul, Menggambar, Menanam).",
+            "cetak": "Mewarnai & membaca Peluluhan Morfem."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1067,8 +1067,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Harakat (Fathah-Kasrah-Dhammah) secara cepat. Game berhitung visual Logika Perkalian Dasar.",
-            "cetak": "Latihan soal tulis mandiri Logika Perkalian Dasar."
+            "aplikasi": "Kaf-Lam Sambung. Latihan Perkalian Dasar & Membaca Otomasi Morfologis Kompleks.",
+            "cetak": "Latihan soal tulis Kata Jadian 5 Suku Kata."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1085,8 +1085,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Harakat (Fathah-Kasrah-Dhammah) & Logika Perkalian Dasar persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Kaf-Lam, Perkalian & Metode Membaca 5 (Konfiks & Peluluhan). Ujian Digital Pekan 4.",
+            "cetak": "Lembar review membaca Layar Penuh Morfologis Kompleks."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1150,7 +1150,7 @@ const KURIKULUM_DATA = {
       "warna": "#FFD600",
       "warnaGradient": "linear-gradient(135deg, #FFD600, #29B6F6)",
       "targetHijaiyah": "Sukun & Tasydid",
-      "targetCalistung": "Membaca Kalimat Sederhana",
+      "targetCalistung": "Soal Cerita Math 1, Metode Membaca 5 (Resegmentasi Silabel & Kata Jadian Panjang 4-6 Suku Kata)",
       "targetFiqih": "Adab Harian (Magic Words)",
       "targetSurat": "Lagu Allah Yang Esa",
       "minggu": [
@@ -1158,8 +1158,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Sukun & Tasydid secara audio-visual menarik. Latihan dasar Membaca Kalimat Sederhana.",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Sukun & Tasydid."
+            "aplikasi": "Pengenalan Mim-Nun. Soal Cerita Matematika 1 & Metode Membaca 5 Sub-3 (Kata Jadian Panjang 4-6 Suku Kata: Kewirausahaan, Ketidakpastian, Permusyawaratan, Kebudayaan, Tanggungjawab).",
+            "cetak": "Lembar tracing Mim-Nun & penguatan Konfiks."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1176,8 +1176,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Sukun & Tasydid dengan harakat fathah/dasar. Pengenalan Membaca Kalimat Sederhana.",
-            "cetak": "Mewarnai huruf/angka Membaca Kalimat Sederhana."
+            "aplikasi": "Mim-Nun Fathah. Penalaran Soal Cerita Penjumlahan/Pengurangan & Resegmentasi Silabel.",
+            "cetak": "Mewarnai & penguatan Peluluhan Morfem."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1194,8 +1194,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Sukun & Tasydid secara cepat. Game berhitung visual Membaca Kalimat Sederhana.",
-            "cetak": "Latihan soal tulis mandiri Membaca Kalimat Sederhana."
+            "aplikasi": "Mim-Nun Sambung. Latihan Soal Cerita Interaktif & Membaca Kata Jadian Panjang 6 Suku Kata.",
+            "cetak": "Latihan soal tulis Kata Jadian 5-6 Suku Kata."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1212,8 +1212,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Sukun & Tasydid & Membaca Kalimat Sederhana persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Mim-Nun, Soal Cerita Math 1 & Metode Membaca 5. Ujian Akhir Bulanan 10.",
+            "cetak": "Lembar review membaca Layar Penuh Resegmentasi."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1277,7 +1277,7 @@ const KURIKULUM_DATA = {
       "warna": "#29B6F6",
       "warnaGradient": "linear-gradient(135deg, #29B6F6, #FF4081)",
       "targetHijaiyah": "Membaca Kata Sambung",
-      "targetCalistung": "Calistung SD (Soal Cerita 1)",
+      "targetCalistung": "Soal Cerita Math 2, Metode Membaca 6 (Kelancaran Prosodi & Frasa 2-3 Kata Berirama)",
       "targetFiqih": "Praktik Jamaah Masjid",
       "targetSurat": "Lagu Asmaul Husna",
       "minggu": [
@@ -1285,8 +1285,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Membaca Kata Sambung secara audio-visual menarik. Latihan dasar Calistung SD (Soal Cerita 1).",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Membaca Kata Sambung."
+            "aplikasi": "Pengenalan Wawu-Ha. Soal Cerita Matematika 2 & Metode Membaca 6 Sub-1 (Pembacaan Frasa 2-3 Kata Berirama: Membaca Buku, Belajar Rajin, Bintang Rabbani, Anak Pintar, Sekolah Indah).",
+            "cetak": "Lembar tracing Wawu-Ha & membaca Frasa Utuh."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1303,8 +1303,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Membaca Kata Sambung dengan harakat fathah/dasar. Pengenalan Calistung SD (Soal Cerita 1).",
-            "cetak": "Mewarnai huruf/angka Calistung SD (Soal Cerita 1)."
+            "aplikasi": "Wawu-Ha Fathah. Penalaran Math Lanjut & Kelancaran Prosodi (Fluency) Akses Makna Cepat.",
+            "cetak": "Mewarnai & membaca Intonasi Tanda Baca."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1321,8 +1321,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Membaca Kata Sambung secara cepat. Game berhitung visual Calistung SD (Soal Cerita 1).",
-            "cetak": "Latihan soal tulis mandiri Calistung SD (Soal Cerita 1)."
+            "aplikasi": "Wawu-Ha Sambung. Latihan Soal Cerita Campuran & Membaca Frasa Berirama Ekspresif.",
+            "cetak": "Latihan soal tulis Teks Pendek Pesan Moral."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1339,8 +1339,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Membaca Kata Sambung & Calistung SD (Soal Cerita 1) persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Review Wawu-Ha, Soal Cerita Math 2 & Metode Membaca 6 Sub-1. Ujian Digital Pekan 4.",
+            "cetak": "Lembar review membaca Layar Penuh Kelancaran Prosodi."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1404,7 +1404,7 @@ const KURIKULUM_DATA = {
       "warna": "#FF4081",
       "warnaGradient": "linear-gradient(135deg, #FF4081, #FFD600)",
       "targetHijaiyah": "Membaca Kalimat Pendek",
-      "targetCalistung": "Calistung SD (Soal Cerita 2)",
+      "targetCalistung": "Evaluasi Kelancaran Calistung SD, Metode Membaca 6 (Kalimat Pendek Ekspresif Intonasi & Akses Makna Cepat)",
       "targetFiqih": "Murojaah Ibadah Total",
       "targetSurat": "Lagu Istighfar (Astaghfirullah)",
       "minggu": [
@@ -1412,8 +1412,8 @@ const KURIKULUM_DATA = {
           "nomor": 1,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Pengenalan awal Membaca Kalimat Pendek secara audio-visual menarik. Latihan dasar Calistung SD (Soal Cerita 2).",
-            "cetak": "Lembar tracing garis bantu & penebalan materi Membaca Kalimat Pendek."
+            "aplikasi": "Pengenalan Hamzah-Ya. Evaluasi Calistung SD & Metode Membaca 6 Sub-2 (Kalimat Pendek Ekspresif Intonasi Benar: Aku Suka Membaca Buku, Saya Anak Sholih, Ayo Belajar Bersama, Rumah Kami Bersih, Kita Bisa Sukses).",
+            "cetak": "Lembar tracing Hamzah-Ya & membaca Prosodi SD."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1430,8 +1430,8 @@ const KURIKULUM_DATA = {
           "nomor": 2,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Membaca Membaca Kalimat Pendek dengan harakat fathah/dasar. Pengenalan Calistung SD (Soal Cerita 2).",
-            "cetak": "Mewarnai huruf/angka Calistung SD (Soal Cerita 2)."
+            "aplikasi": "Murojaah Hijaiyah & Iqra 1-2 Total. Latihan Kelancaran Prosodi & Intonasi Tanda Baca (?, !).",
+            "cetak": "Mewarnai & membaca Teks Pendek Tanpa Jeda."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1448,8 +1448,8 @@ const KURIKULUM_DATA = {
           "nomor": 3,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Mengeja gabungan huruf Membaca Kalimat Pendek secara cepat. Game berhitung visual Calistung SD (Soal Cerita 2).",
-            "cetak": "Latihan soal tulis mandiri Calistung SD (Soal Cerita 2)."
+            "aplikasi": "Murojaah Calistung Complete (Vokal, A-Z, Angka Puluhan Fullscreen, 6 Metode Membaca & Math SD).",
+            "cetak": "Latihan soal ujian membaca & berhitung SD."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",
@@ -1466,8 +1466,8 @@ const KURIKULUM_DATA = {
           "nomor": 4,
           "senin": {
             "judul": "Tahsin & Calistung",
-            "aplikasi": "Review intensif materi bulanan Membaca Kalimat Pendek & Calistung SD (Soal Cerita 2) persiapan ujian akhir.",
-            "cetak": "Lembar review motorik halus (mewarnai kaligrafi)."
+            "aplikasi": "Ujian Akhir Komprehensif 12 Bulan & Persiapan Penuh Masuk SD/MI. Penerbitan E-Raport Wisuda.",
+            "cetak": "Evaluasi Raport Kelulusan 12 Bulan Calistung SD."
           },
           "rabu": {
             "judul": "Fiqih & Akidah",

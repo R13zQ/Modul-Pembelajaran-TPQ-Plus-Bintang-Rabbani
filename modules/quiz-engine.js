@@ -406,9 +406,64 @@ const quizEngine = {
     });
   },
   
+  playApplauseSound() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      
+      const duration = 2.2;
+      const bufferSize = ctx.sampleRate * duration;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = buffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        let white = Math.random() * 2 - 1;
+        let t = i / ctx.sampleRate;
+        let env = t < 0.15 ? t / 0.15 : (t > 1.8 ? (2.2 - t) / 0.4 : 1.0);
+        let clap = (Math.random() > 0.982) ? (Math.random() * 2.8) : 0.0;
+        output[i] = (white * 0.18 + clap * 0.82) * env;
+      }
+
+      const whiteNoise = ctx.createBufferSource();
+      whiteNoise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1300;
+      filter.Q.value = 0.85;
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.8, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+
+      whiteNoise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      whiteNoise.start();
+
+      const chord = [523.25, 659.25, 783.99, 1046.50];
+      chord.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const noteGain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        const startTime = ctx.currentTime + (idx * 0.1);
+        noteGain.gain.setValueAtTime(0.3, startTime);
+        noteGain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.45);
+        osc.connect(noteGain);
+        noteGain.connect(ctx.destination);
+        osc.start(startTime);
+        osc.stop(startTime + 0.45);
+      });
+    } catch (e) {
+      console.log('Audio applause playback notice:', e);
+    }
+  },
+
   generateQuestions() {
     this.questions = [];
-    const count = 5; // 5 soal per kuis
+    const count = 5;
     
     if (this.currentType === 'huruf-arab') {
       const list = [...HIJAIYAH_DATA.huruf].sort(() => Math.random() - .5);
@@ -423,32 +478,87 @@ const quizEngine = {
         choices.sort(() => Math.random() - .5);
         this.questions.push({
           type: 'choice',
-          question: `Huruf apakah ini? <div style="font-size: 5rem; line-height:1.2; direction:rtl; margin-top:.5rem">${item.arab}</div>`,
+          question: `Huruf apakah ini? <div style="font-size: 6.5rem; line-height:1.2; direction:rtl; margin-top:.5rem; color:${item.warna || '#FFD600'}">${item.arab}</div>`,
           correct: correct,
           pilihan: choices,
-          emoji: item.emoji
+          emoji: item.emoji || '🕌'
         });
       }
     } else if (this.currentType === 'huruf-indo') {
-      const list = [...CALISTUNG_DATA.hurufIndonesia].sort(() => Math.random() - .5);
-      for (let i = 0; i < count; i++) {
-        const item = list[i % list.length];
-        const correct = item.huruf;
+      const questionPool = [];
+
+      // 1. Pertanyaan Menebak Huruf Indonesia ("Huruf apakah ini?")
+      CALISTUNG_DATA.hurufIndonesia.forEach(h => {
+        const correct = h.huruf;
         const choices = [correct];
         while (choices.length < 4) {
           const rand = CALISTUNG_DATA.hurufIndonesia[Math.floor(Math.random() * CALISTUNG_DATA.hurufIndonesia.length)].huruf;
           if (!choices.includes(rand)) choices.push(rand);
         }
         choices.sort(() => Math.random() - .5);
-        const contoh1 = item.contoh[0];
-        this.questions.push({
+        questionPool.push({
           type: 'choice',
-          question: `Huruf apa yang berbunyi seperti awalan kata "${contoh1.kata}" ${contoh1.emoji}?`,
+          question: `Huruf apakah ini?<br><div class="quiz-giant-symbol" style="font-size:6.5rem; font-weight:900; color:${h.warna}; margin:.5rem 0; text-align:center">${h.huruf} <span style="font-size:0.65em; opacity:0.85">(${h.hurufKecil})</span></div>`,
+          correct: correct,
+          pilihan: choices,
+          emoji: h.contoh[0]?.emoji || '🔤'
+        });
+      });
+
+      // 2. Pertanyaan Siapa yang Bisa Membaca dan Mengeja Kata Ini? (contoh: Me - Ja)
+      const spellingExamples = [
+        { suku: 'Me - Ja', kata: 'Meja', emoji: '🪵', warna: '#FF6B35' },
+        { suku: 'A - ku', kata: 'Aku', emoji: '🧑', warna: '#FF8C42' },
+        { suku: 'Ba - tu', kata: 'Batu', emoji: '🪨', warna: '#FFA055' },
+        { suku: 'Se - pe - da', kata: 'Sepeda', emoji: '🚲', warna: '#FFD600' },
+        { suku: 'Ke - me - ja', kata: 'Kemeja', emoji: '👔', warna: '#00C896' },
+        { suku: 'Sam - pai', kata: 'Sampai', emoji: '🏁', warna: '#29B6F6' },
+        { suku: 'Bu - nga', kata: 'Bunga', emoji: '🌺', warna: '#9C27B0' },
+        { suku: 'Pan - dai', kata: 'Pandai', emoji: '🎓', warna: '#FF4081' },
+        { suku: 'Trom - pet', kata: 'Trompet', emoji: '🎺', warna: '#FF6B35' },
+        { suku: 'Pen - ce - gah - an', kata: 'Pencegahan', emoji: '🛡️', warna: '#FF4081' },
+        { suku: 'Mem-ba-ca Bu-ku', kata: 'Membaca Buku', emoji: '📚', warna: '#00BCD4' }
+      ];
+
+      spellingExamples.forEach(s => {
+        const correct = s.kata;
+        const choices = [correct];
+        const fakes = ['Mata', 'Baju', 'Kuda', 'Roti', 'Pipi', 'Sapi', 'Topi', 'Rumah', 'Kapal', 'Kipas'];
+        while (choices.length < 4) {
+          const rand = fakes[Math.floor(Math.random() * fakes.length)];
+          if (!choices.includes(rand)) choices.push(rand);
+        }
+        choices.sort(() => Math.random() - .5);
+        questionPool.push({
+          type: 'choice',
+          question: `Siapa yang bisa membaca dan mengeja kata ini?<br><div style="font-size:3.5rem; font-weight:900; color:${s.warna}; margin:.8rem 0; text-align:center; background:#FFF9C4; padding:.6rem 1.5rem; border-radius:24px; border:3px dashed #FBC02D; display:inline-block">${s.suku}</div>`,
+          correct: correct,
+          pilihan: choices,
+          emoji: s.emoji
+        });
+      });
+
+      // 3. Menghubungkan Bunyi Awalan Kata Bergambar
+      CALISTUNG_DATA.hurufIndonesia.forEach(h => {
+        const contoh1 = h.contoh[0];
+        const correct = h.huruf;
+        const choices = [correct];
+        while (choices.length < 4) {
+          const rand = CALISTUNG_DATA.hurufIndonesia[Math.floor(Math.random() * CALISTUNG_DATA.hurufIndonesia.length)].huruf;
+          if (!choices.includes(rand)) choices.push(rand);
+        }
+        choices.sort(() => Math.random() - .5);
+        questionPool.push({
+          type: 'choice',
+          question: `Huruf apa yang berbunyi seperti awalan kata <b>"${contoh1.kata}"</b> ${contoh1.emoji}?`,
           correct: correct,
           pilihan: choices,
           emoji: contoh1.emoji
         });
-      }
+      });
+
+      questionPool.sort(() => Math.random() - .5);
+      this.questions = questionPool.slice(0, count);
     } else if (this.currentType === 'berhitung') {
       const list = [...CALISTUNG_DATA.penjumlahan, ...CALISTUNG_DATA.pengurangan].sort(() => Math.random() - .5);
       for (let i = 0; i < count; i++) {
@@ -488,7 +598,6 @@ const quizEngine = {
         });
       }
     } else if (this.currentType === 'drag-drop') {
-      // Urutan Wudhu
       const wudhuList = FIQIH_DATA.wudhu.slice(0, 4).map((w, idx) => ({ name: w.nama, step: idx + 1, emoji: w.emoji }));
       this.questions.push({
         type: 'dnd',
@@ -496,7 +605,6 @@ const quizEngine = {
         items: [...wudhuList].sort(() => Math.random() - .5),
         correct: wudhuList
       });
-      // Urutan Angka 1-5
       const numList = [1,2,3,4,5].map(n => ({ name: n.toString(), step: n, emoji: '🔢' }));
       this.questions.push({
         type: 'dnd',
@@ -552,10 +660,13 @@ const quizEngine = {
     if (q.type === 'choice') {
       html += `<div class="quiz-pilihan-grid">`;
       q.pilihan.forEach(p => {
+        const isShort = p.length <= 3;
+        const fontSz = isShort ? '3.2rem' : p.length <= 8 ? '2.5rem' : '1.8rem';
+        const escaped = p.replace(/'/g, "\\'");
         html += `
-          <button class="quiz-pilihan" onclick="quizEngine.submitAnswer(this, '${p}')">
+          <button class="quiz-pilihan" onclick="quizEngine.submitAnswer(this, '${escaped}')">
             <span class="quiz-pilihan-emoji">${q.emoji || '⭐'}</span>
-            <span>${p}</span>
+            <span class="quiz-pilihan-text" style="font-size:${fontSz} !important; font-weight:900; color:#1A237E">${p}</span>
           </button>
         `;
       });
@@ -585,8 +696,11 @@ const quizEngine = {
     if (value === q.correct) {
       btn.classList.add('benar');
       this.score += 20;
-      app.showKonfeti();
-      app.jumpMascot();
+      this.playApplauseSound();
+      if (typeof app !== 'undefined') {
+        if (app.showKonfeti) app.showKonfeti();
+        if (app.jumpMascot) app.jumpMascot();
+      }
     } else {
       btn.classList.add('salah');
       choices.forEach(c => {
