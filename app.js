@@ -20,8 +20,14 @@ const app = {
     this.renderSantriList();
     this.initHamburger();
     this.initJinglePlayer();
-    // Pilih bulan 1 by default
-    setTimeout(() => this.pilihBulan(1), 500);
+
+    // Render all month contents immediately so Calistung tabs are 100% active on load
+    if (typeof KURIKULUM_DATA !== 'undefined' && KURIKULUM_DATA.bulan) {
+      KURIKULUM_DATA.bulan.forEach(b => this.renderBulanContent(b.nomor));
+    }
+    
+    // Pilih bulan 1 dengan tab calistung aktif secara default
+    setTimeout(() => this.pilihBulan(1, 'calistung'), 100);
     
     // Check authentication on load
     this.checkAuth();
@@ -277,7 +283,7 @@ const app = {
   },
   
   // === PILIH BULAN ===
-  pilihBulan(nomor) {
+  pilihBulan(nomor, tabName = null) {
     this.bulanAktif = nomor;
     // Update active state pada cards
     document.querySelectorAll('.bulan-card').forEach((c, i) => {
@@ -289,8 +295,14 @@ const app = {
     const panel = document.getElementById(`panel-bulan-${nomor}`);
     if (panel) {
       panel.classList.add('active');
-      // Render konten jika belum
+      // Render konten
       this.renderBulanContent(nomor);
+      
+      // Jika tabName ditentukan (misal 'calistung'), aktifkan tab tersebut
+      if (tabName) {
+        const tabBtn = panel.querySelector(`.panel-tab[onclick*="'${tabName}'"]`);
+        if (tabBtn) this.switchTab(nomor, tabName, tabBtn);
+      }
     }
   },
   
@@ -304,9 +316,9 @@ const app = {
       hijEl.innerHTML = this.renderHijaiyahTab(bulan);
       hijEl.dataset.rendered = '1';
     }
-    // Render Calistung tab
+    // Render Calistung tab (Always fresh render to ensure latest features active)
     const calEl = document.getElementById(`calistung-content-${nomor}`);
-    if (calEl && !calEl.dataset.rendered) {
+    if (calEl) {
       calEl.innerHTML = this.renderCalistungTab(bulan);
       calEl.dataset.rendered = '1';
     }
@@ -675,10 +687,12 @@ const app = {
       if (countEl) countEl.textContent = `${deck.currentIndex + 1} / ${deck.items.length}`;
 
       const color = item.warna || '#00C896';
+      const visualEmoji = (item.emoji || '🍎').repeat(Math.min(item.angka, 10));
       html = `
         <div class="fs-letter-main" style="color:${color}">${item.angka} <span style="font-size:0.5em; opacity:0.75">(${item.arab})</span></div>
         <div class="fs-letter-name">Angka ${item.angka} (${item.latin})</div>
         <div class="fs-letter-sub">Angka Arab: ${item.arab}</div>
+        <div style="font-size:3.5rem; margin-top:0.8rem; text-align:center; line-height:1.2; word-break:break-word">${visualEmoji}</div>
       `;
     } else if (deck.type === 'iqra') {
       const data = HIJAIYAH_DATA.iqra[`iqra${deck.level}`];
@@ -1537,10 +1551,22 @@ const app = {
   // === SWITCH TAB ===
   switchTab(bulanNomor, tabName, btn) {
     const panel = document.getElementById(`panel-bulan-${bulanNomor}`);
-    panel.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
-    panel.querySelectorAll('.panel-tab-content').forEach(c => c.classList.remove('active'));
+    if (panel) {
+      panel.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+      panel.querySelectorAll('.panel-tab-content').forEach(c => c.classList.remove('active'));
+    }
     btn.classList.add('active');
-    document.getElementById(`tab-${bulanNomor}-${tabName}`)?.classList.add('active');
+    const tabEl = document.getElementById(`tab-${bulanNomor}-${tabName}`);
+    if (tabEl) {
+      tabEl.classList.add('active');
+      if (tabName === 'calistung') {
+        const bulan = KURIKULUM_DATA.bulan[bulanNomor - 1];
+        const calEl = document.getElementById(`calistung-content-${bulanNomor}`);
+        if (bulan && calEl) {
+          calEl.innerHTML = this.renderCalistungTab(bulan);
+        }
+      }
+    }
   },
   
   // === KONFETI ===

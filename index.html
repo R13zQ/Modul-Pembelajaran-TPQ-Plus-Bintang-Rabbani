@@ -202,6 +202,7 @@
                 <div class="silabus-item"><div class="si-num">2</div><div class="si-text">Membaca Suku Kata & Kalimat Sederhana</div></div>
                 <div class="silabus-item"><div class="si-num">3</div><div class="si-text">Menulis Tracing Garis, Huruf & Angka</div></div>
                 <div class="silabus-item"><div class="si-num">4</div><div class="si-text">Konsep Angka 1-30 & Latihan Penjumlahan</div></div>
+                <button style="margin-top:0.8rem; background:var(--orange); color:white; border:none; padding:0.45rem 1rem; border-radius:20px; font-weight:800; font-size:0.8rem; cursor:pointer" onclick="event.stopPropagation(); app.pilihBulan(1,'calistung'); app.scrollTo('roadmap')">✏️ Buka Modul Calistung Interaktif →</button>
               </div>
             </div>
           </div>
@@ -1103,6 +1104,24 @@
   </div>
 
   <!-- Modals -->
+  <!-- Fullscreen Interactive Letter / Number Viewer (Slide Deck) -->
+  <div class="fs-letter-modal" id="modal-fullscreen-letter">
+    <div class="fs-letter-header">
+      <div class="fs-letter-badge">
+        <span id="fs-letter-category">🔤 Huruf / Angka</span>
+        <span class="fs-letter-counter" id="fs-letter-counter">1 / 1</span>
+      </div>
+      <button class="fs-letter-close" onclick="app.closeFullscreenLetter()">&times;</button>
+    </div>
+
+    <div class="fs-letter-content" id="fs-letter-content">
+      <!-- Dynamic Slide Content rendered by app.renderFullscreenLetter() -->
+    </div>
+
+    <button class="fs-nav-btn fs-nav-prev" onclick="app.prevFullscreenLetter()" title="Kembali (Geser Kiri)"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="fs-nav-btn fs-nav-next" onclick="app.nextFullscreenLetter()" title="Lanjut (Geser Kanan)"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+
   <!-- Modal Huruf Detail -->
   <div class="modal-overlay" id="modal-huruf">
     <div class="modal-card">
