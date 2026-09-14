@@ -9,6 +9,8 @@ const app = {
   santriAktif: null,
   progress: JSON.parse(localStorage.getItem('progress') || '{}'),
   currentUser: null,
+  raportData: JSON.parse(localStorage.getItem('raportData') || '{}'),
+  triwulanAktif: 1,
   
   // Init
   init() {
@@ -1854,31 +1856,111 @@ const app = {
     container.innerHTML = html;
   },
   
-  // === SANTRI MANAGEMENT ===
+  // === SANTRI MANAGEMENT & TRIWULAN RAPORT ===
   tambahSantri() {
     const input = document.getElementById('input-nama-santri');
-    const nama = input.value.trim();
+    const nama = input ? input.value.trim() : '';
     if (!nama) return;
     const colors = ['#FF6B35','#FFD600','#00C896','#29B6F6','#9C27B0','#FF4081','#00BCD4'];
     this.santriList.push({ nama, id: Date.now(), color: colors[this.santriList.length % colors.length], bintang: 0 });
     this.progress[nama] = {};
     localStorage.setItem('santriList', JSON.stringify(this.santriList));
     localStorage.setItem('progress', JSON.stringify(this.progress));
-    input.value = '';
+    if (input) input.value = '';
     this.renderSantriList();
+  },
+
+  editSantri(idx, event) {
+    if (event) event.stopPropagation();
+    const santri = this.santriList[idx];
+    if (!santri) return;
+    const namaBaru = prompt(`Edit nama santri "${santri.nama}":`, santri.nama);
+    if (namaBaru && namaBaru.trim() && namaBaru.trim() !== santri.nama) {
+      const namaLama = santri.nama;
+      const cleanNama = namaBaru.trim();
+      
+      santri.nama = cleanNama;
+      
+      if (this.progress[namaLama]) {
+        this.progress[cleanNama] = this.progress[namaLama];
+        delete this.progress[namaLama];
+      }
+      if (this.raportData && this.raportData[namaLama]) {
+        this.raportData[cleanNama] = this.raportData[namaLama];
+        delete this.raportData[namaLama];
+        localStorage.setItem('raportData', JSON.stringify(this.raportData));
+      }
+      
+      localStorage.setItem('santriList', JSON.stringify(this.santriList));
+      localStorage.setItem('progress', JSON.stringify(this.progress));
+      
+      this.renderSantriList();
+      if (this.santriAktif === idx) {
+        this.renderProgressSantri(idx);
+      }
+    }
+  },
+
+  hapusSantri(idx, event) {
+    if (event) event.stopPropagation();
+    const santri = this.santriList[idx];
+    if (!santri) return;
+    if (confirm(`Apakah Anda yakin ingin menghapus data santri "${santri.nama}"?`)) {
+      const nama = santri.nama;
+      this.santriList.splice(idx, 1);
+      delete this.progress[nama];
+      if (this.raportData && this.raportData[nama]) {
+        delete this.raportData[nama];
+        localStorage.setItem('raportData', JSON.stringify(this.raportData));
+      }
+      
+      localStorage.setItem('santriList', JSON.stringify(this.santriList));
+      localStorage.setItem('progress', JSON.stringify(this.progress));
+      
+      if (this.santriAktif === idx) {
+        this.santriAktif = this.santriList.length > 0 ? 0 : null;
+      } else if (this.santriAktif > idx) {
+        this.santriAktif -= 1;
+      }
+      
+      this.renderSantriList();
+      if (this.santriAktif !== null && this.santriList.length > 0) {
+        this.renderProgressSantri(this.santriAktif);
+      } else {
+        const titleEl = document.getElementById('progress-santri-nama');
+        if (titleEl) titleEl.textContent = 'Pilih santri untuk melihat progress & mengisi e-raport';
+        const progressContent = document.getElementById('progress-content');
+        if (progressContent) {
+          progressContent.innerHTML = `<p style="color:#546e7a;font-style:italic;text-align:center;padding:3rem 0">Silakan tambahkan atau pilih santri untuk melihat grafik kemajuan & mengisi e-raport 3 bulanan.</p>`;
+        }
+      }
+    }
   },
   
   renderSantriList() {
     const list = document.getElementById('santri-list');
     if (!list) return;
+    if (this.santriList.length === 0) {
+      list.innerHTML = `<li style="padding:1rem;text-align:center;color:#78909c;font-style:italic">Belum ada santri terdaftar. Silakan tambahkan nama santri di atas.</li>`;
+      return;
+    }
     list.innerHTML = this.santriList.map((s, i) => `
-      <li class="santri-item ${this.santriAktif === i ? 'active' : ''}" onclick="app.pilihSantri(${i})">
-        <div class="santri-avatar" style="background:${s.color}">${s.nama.charAt(0).toUpperCase()}</div>
-        <div class="santri-info">
-          <h4>${s.nama}</h4>
-          <span>Santri ${i+1}</span>
+      <li class="santri-item ${this.santriAktif === i ? 'active' : ''}" onclick="app.pilihSantri(${i})" style="display:flex;align-items:center;justify-content:space-between;padding:.75rem;border-radius:12px;margin-bottom:.5rem;background:${this.santriAktif === i ? 'rgba(41,182,246,.12)' : 'white'};border:1px solid ${this.santriAktif === i ? 'var(--blue)' : '#ECEFF1'};cursor:pointer">
+        <div style="display:flex;align-items:center;gap:.75rem;flex:1;min-width:0">
+          <div class="santri-avatar" style="background:${s.color};width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:1.1rem;flex-shrink:0">${s.nama.charAt(0).toUpperCase()}</div>
+          <div class="santri-info" style="overflow:hidden">
+            <h4 style="margin:0;font-weight:800;font-size:.88rem;color:#1A237E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.nama}</h4>
+            <span style="font-size:.72rem;color:#78909c">Santri ${i+1} • ⭐ ${s.bintang}</span>
+          </div>
         </div>
-        <div class="santri-bintang">⭐ ${s.bintang}</div>
+        <div class="santri-actions" style="display:flex;gap:.35rem;margin-left:.5rem;flex-shrink:0" onclick="event.stopPropagation()">
+          <button onclick="app.editSantri(${i}, event)" title="Edit Nama Santri" style="background:#E3F2FD;color:#1976D2;border:none;padding:.35rem .6rem;border-radius:8px;font-weight:800;font-size:.75rem;cursor:pointer;display:inline-flex;align-items:center;gap:.2rem">
+            ✏️ Edit
+          </button>
+          <button onclick="app.hapusSantri(${i}, event)" title="Hapus Santri" style="background:#FFEBEE;color:#D32F2F;border:none;padding:.35rem .6rem;border-radius:8px;font-weight:800;font-size:.75rem;cursor:pointer;display:inline-flex;align-items:center;gap:.2rem">
+            🗑️ Hapus
+          </button>
+        </div>
       </li>`).join('');
   },
   
@@ -1887,24 +1969,279 @@ const app = {
     this.renderSantriList();
     this.renderProgressSantri(idx);
   },
+
+  pilihTriwulan(triwulanId) {
+    this.triwulanAktif = triwulanId;
+    if (this.santriAktif !== null) {
+      this.renderProgressSantri(this.santriAktif);
+    }
+  },
+
+  simpanRaportTriwulan() {
+    if (this.santriAktif === null) return;
+    const santri = this.santriList[this.santriAktif];
+    if (!santri) return;
+
+    const tId = this.triwulanAktif || 1;
+    const tahsinGrade = document.getElementById('rf-tahsin-grade')?.value || 'A';
+    const tahsinNote = document.getElementById('rf-tahsin-note')?.value || '';
+    const calistungGrade = document.getElementById('rf-calistung-grade')?.value || 'A';
+    const calistungNote = document.getElementById('rf-calistung-note')?.value || '';
+    const fiqihGrade = document.getElementById('rf-fiqih-grade')?.value || 'A';
+    const fiqihNote = document.getElementById('rf-fiqih-note')?.value || '';
+    const hafalanGrade = document.getElementById('rf-hafalan-grade')?.value || 'A';
+    const hafalanNote = document.getElementById('rf-hafalan-note')?.value || '';
+    const karakterNote = document.getElementById('rf-karakter-note')?.value || '';
+
+    if (!this.raportData[santri.nama]) {
+      this.raportData[santri.nama] = {};
+    }
+
+    this.raportData[santri.nama][tId] = {
+      tahsinGrade,
+      tahsinNote,
+      calistungGrade,
+      calistungNote,
+      fiqihGrade,
+      fiqihNote,
+      hafalanGrade,
+      hafalanNote,
+      karakterNote,
+      updatedAt: new Date().toISOString()
+    };
+
+    localStorage.setItem('raportData', JSON.stringify(this.raportData));
+    alert(`✅ Data Raport Triwulan ${tId} untuk santri "${santri.nama}" berhasil disimpan!`);
+  },
+
+  cetakRaportTriwulanAktif() {
+    if (this.santriAktif === null) return;
+    const santri = this.santriList[this.santriAktif];
+    if (!santri) return;
+
+    const tId = this.triwulanAktif || 1;
+    
+    // Auto-save latest form values before printing
+    this.simpanRaportTriwulan();
+
+    const dataRaport = (this.raportData[santri.nama] && this.raportData[santri.nama][tId]) ? this.raportData[santri.nama][tId] : {
+      tahsinGrade: 'A', tahsinNote: 'Fasih membaca makhraj & iqra.',
+      calistungGrade: 'A', calistungNote: 'Mengenal huruf, angka, & berhitung.',
+      fiqihGrade: 'A', fiqihNote: 'Tertib mempraktikkan ibadah wudhu & sholat.',
+      hafalanGrade: 'A', hafalanNote: 'Lancar menghafal surat pendek & doa.',
+      karakterNote: 'Santri mandiri, disiplin, & berakhlak mulia.'
+    };
+
+    if (window.pdfGenerator && window.pdfGenerator.cetakRaportTriwulan) {
+      window.pdfGenerator.cetakRaportTriwulan(santri.nama, tId, dataRaport);
+    } else {
+      alert("Generator PDF belum dimuat.");
+    }
+  },
   
   renderProgressSantri(idx) {
     const santri = this.santriList[idx];
     if (!santri) return;
-    document.getElementById('progress-santri-nama').textContent = `📊 Progress ${santri.nama}`;
+    
+    const titleEl = document.getElementById('progress-santri-nama');
+    if (titleEl) titleEl.textContent = `📊 Progress & E-Raport: ${santri.nama}`;
+    
     const progressContent = document.getElementById('progress-content');
+    if (!progressContent) return;
+
     const prog = this.progress[santri.nama] || {};
-    if (!window.KURIKULUM_DATA) return;
-    progressContent.innerHTML = KURIKULUM_DATA.bulan.map(b => {
-      const persen = prog[b.nomor] || 0;
-      return `<div class="progress-bulan-row">
-        <div class="pb-nama">${b.emoji} Bulan ${b.nomor}</div>
-        <div class="pb-bar"><div class="pb-fill" style="width:${persen}%;background:${b.warnaGradient.includes(',') ? b.warnaGradient : 'var(--blue)'}">&nbsp;</div></div>
-        <div class="pb-persen" style="color:${persen >= 80 ? '#00C896' : persen >= 50 ? '#FFD600' : '#FF6B35'}">${persen}%</div>
-      </div>`;
-    }).join('');
-    // Tombol raport
-    progressContent.innerHTML += `<button style="margin-top:1.5rem;background:linear-gradient(135deg,#FF6B35,#FF4081);color:white;border:none;padding:.8rem 2rem;border-radius:20px;font-weight:800;cursor:pointer;font-size:.88rem" onclick="pdfGenerator.cetakRaport('${santri.nama}')">📄 Cetak E-Raport</button>`;
+    const tId = this.triwulanAktif || 1;
+    
+    // Default values if not yet stored
+    const defaultData = {
+      1: {
+        tahsinGrade: 'A', tahsinNote: 'Fasih membaca makhraj Alif–Zai',
+        calistungGrade: 'A', calistungNote: 'Mengenal huruf vokal & angka 1-15',
+        fiqihGrade: 'A', fiqihNote: 'Tertib membaca syahadat & gerakan wudhu',
+        hafalanGrade: 'A', hafalanNote: 'Lancar An-Nas, Al-Falaq, Al-Ikhlas',
+        karakterNote: 'Santri sangat ceria, rajin, dan disiplin.'
+      },
+      2: {
+        tahsinGrade: 'A', tahsinNote: 'Fasih membaca Sin–Lam & harakat',
+        calistungGrade: 'A', calistungNote: 'Menulis huruf J-V, angka 16-30 & penjumlahan',
+        fiqihGrade: 'A', fiqihNote: 'Tertib gerakan sholat & adab makan',
+        hafalanGrade: 'A', hafalanNote: 'Lancar Al-Lahab, An-Nashr, Al-Kafirun',
+        karakterNote: 'Santri mandiri dan taat pada Ustadz/Ustadzah.'
+      },
+      3: {
+        tahsinGrade: 'A', tahsinNote: 'Lancar membaca Mim–Ya & tanwin/sukun',
+        calistungGrade: 'A', calistungNote: 'Mengeja 2 suku kata & pengurangan/perkalian',
+        fiqihGrade: 'A', fiqihNote: 'Paham waktu sholat 5 waktu & doa harian',
+        hafalanGrade: 'A', hafalanNote: 'Lancar Al-Kautsar, Al-Maun, Al-Quraisy',
+        karakterNote: 'Santri santun, percaya diri, & rajin belajar.'
+      },
+      4: {
+        tahsinGrade: 'A', tahsinNote: 'Memahami tasydid, tajwid dasar, & Murojaah Iqra 6',
+        calistungGrade: 'A', calistungNote: 'Lancar membaca cerita pendek & soal cerita SD',
+        fiqihGrade: 'A', fiqihNote: 'Menerapkan 8 kata ajaib Islam & murojaah ibadah',
+        hafalanGrade: 'A', hafalanNote: 'Lancar Al-Fil, Al-Humazah, Al-Ashr',
+        karakterNote: 'Santri berakhlak mulia dan siap masuk jenjang SD/MI.'
+      }
+    };
+
+    const savedRaport = (this.raportData[santri.nama] && this.raportData[santri.nama][tId]) ? this.raportData[santri.nama][tId] : defaultData[tId];
+
+    const triwulanInfo = {
+      1: { title: "Triwulan 1 (Bulan 1 - 3)", desc: "Capaian Alif-Zai, Huruf A-O & Angka 1-15, Wudhu & Syahadat, Surat An-Nas, Al-Falaq, Al-Ikhlas" },
+      2: { title: "Triwulan 2 (Bulan 4 - 6)", desc: "Capaian Sin-Lam & Harakat, Huruf J-V & Penjumlahan, Sholat & Doa, Surat Al-Lahab, An-Nashr, Al-Kafirun" },
+      3: { title: "Triwulan 3 (Bulan 7 - 9)", desc: "Capaian Mim-Ya & Tanwin, Read 2 Suku Kata & Pengurangan/Perkalian, Sholat 5 Waktu, Surat Al-Kautsar, Al-Maun, Al-Quraisy" },
+      4: { title: "Triwulan 4 (Bulan 10 - 12)", desc: "Capaian Tajwid & Iqra 6, Kalimat Story & Soal Cerita SD, Adab Harian, Surat Al-Fil, Al-Humazah, Al-Ashr" }
+    };
+
+    let html = `
+      <!-- Ringkasan Progress 12 Bulan -->
+      <div style="background:#F8FAFB;border-radius:16px;padding:1.2rem;margin-bottom:2rem;border:1px solid #ECEFF1">
+        <h4 style="font-weight:800;color:#1A237E;margin-bottom:1rem;font-size:.92rem">📈 Progress Capaian 12 Bulan</h4>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem">
+          ${window.KURIKULUM_DATA ? window.KURIKULUM_DATA.bulan.map(b => {
+            const persen = prog[b.nomor] || 0;
+            return `
+              <div class="progress-bulan-row" style="background:white;padding:.6rem .8rem;border-radius:10px;border:1px solid #ECEFF1">
+                <div class="pb-nama" style="font-size:.78rem;font-weight:700;color:#1A237E">${b.emoji} Bulan ${b.nomor}</div>
+                <div class="pb-bar" style="height:8px;background:#ECEFF1;border-radius:10px;overflow:hidden;margin:.3rem 0">
+                  <div class="pb-fill" style="width:${persen}%;height:100%;background:${b.warnaGradient && b.warnaGradient.includes(',') ? b.warnaGradient : 'var(--blue)'}"></div>
+                </div>
+                <div class="pb-persen" style="font-size:.75rem;font-weight:800;color:${persen >= 80 ? '#00C896' : persen >= 50 ? '#FFD600' : '#FF6B35'};text-align:right">${persen}%</div>
+              </div>
+            `;
+          }).join('') : ''}
+        </div>
+      </div>
+
+      <!-- Form Isian Raport Triwulan -->
+      <div style="background:white;border-radius:20px;padding:1.8rem;border:2px solid #E3F2FD;box-shadow:0 8px 24px rgba(41,182,246,.08)">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem;border-bottom:2px solid #ECEFF1;padding-bottom:1rem">
+          <div>
+            <h3 style="font-family:'Poppins',sans-serif;font-weight:800;color:#1A237E;margin:0;font-size:1.15rem">📝 Form Isian Raport Santri (Periode 3 Bulanan)</h3>
+            <p style="font-size:.82rem;color:#78909c;margin:.2rem 0 0">Isi nilai predikat & catatan pengajar untuk periode Triwulan santri <b>${santri.nama}</b>.</p>
+          </div>
+        </div>
+
+        <!-- Triwulan Tab Navigation -->
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem">
+          ${[1, 2, 3, 4].map(t => `
+            <button onclick="app.pilihTriwulan(${t})" style="flex:1;min-width:120px;padding:.65rem .8rem;border-radius:12px;border:none;font-weight:800;font-size:.82rem;cursor:pointer;transition:all .2s;background:${tId === t ? 'linear-gradient(135deg,var(--orange),var(--yellow))' : '#F1F5F9'};color:${tId === t ? 'white' : '#64748B'};box-shadow:${tId === t ? '0 4px 12px rgba(255,107,53,.3)' : 'none'}">
+              📌 Triwulan ${t}
+            </button>
+          `).join('')}
+        </div>
+
+        <!-- Scope Info Box -->
+        <div style="background:#FFF9C4;border-left:4px solid #FFD600;padding:.8rem 1.2rem;border-radius:10px;margin-bottom:1.5rem">
+          <div style="font-weight:800;font-size:.85rem;color:#1A237E">${triwulanInfo[tId].title}</div>
+          <div style="font-size:.78rem;color:#546e7a;margin-top:.2rem">Cakupan Materi: ${triwulanInfo[tId].desc}</div>
+        </div>
+
+        <!-- Form Fields Grid -->
+        <div style="display:grid;grid-template-columns:1fr;gap:1.2rem">
+          
+          <!-- 1. Tahsin & Al-Qur'an -->
+          <div style="background:#F8FAFB;border:1px solid #CFD8DC;border-radius:14px;padding:1.2rem">
+            <label style="font-weight:800;font-size:.88rem;color:#1A237E;display:block;margin-bottom:.5rem">📖 1. Nilai Tahsin & Al-Qur'an (Hijaiyah / Iqra)</label>
+            <div style="display:grid;grid-template-columns:140px 1fr;gap:1rem;align-items:center">
+              <div>
+                <span style="font-size:.75rem;font-weight:700;color:#546e7a;display:block;margin-bottom:.3rem">Predikat:</span>
+                <select id="rf-tahsin-grade" style="width:100%;padding:.6rem;border-radius:10px;border:2px solid #CFD8DC;font-weight:800;color:#1A237E">
+                  <option value="A" ${savedRaport.tahsinGrade === 'A' ? 'selected' : ''}>A (Sangat Baik)</option>
+                  <option value="B" ${savedRaport.tahsinGrade === 'B' ? 'selected' : ''}>B (Baik)</option>
+                  <option value="C" ${savedRaport.tahsinGrade === 'C' ? 'selected' : ''}>C (Cukup)</option>
+                  <option value="D" ${savedRaport.tahsinGrade === 'D' ? 'selected' : ''}>D (Murojaah)</option>
+                </select>
+              </div>
+              <div>
+                <span style="font-size:.75rem;font-weight:700;color:#546e7a;display:block;margin-bottom:.3rem">Catatan Makhraj & Kelancaran:</span>
+                <input type="text" id="rf-tahsin-note" value="${savedRaport.tahsinNote || ''}" placeholder="Catatan tahsin..." style="width:100%;padding:.6rem 1rem;border-radius:10px;border:2px solid #CFD8DC;font-weight:600">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Calistung & Kognitif -->
+          <div style="background:#F8FAFB;border:1px solid #CFD8DC;border-radius:14px;padding:1.2rem">
+            <label style="font-weight:800;font-size:.88rem;color:#1A237E;display:block;margin-bottom:.5rem">✏️ 2. Nilai Calistung & Kognitif (Membaca & Berhitung)</label>
+            <div style="display:grid;grid-template-columns:140px 1fr;gap:1rem;align-items:center">
+              <div>
+                <span style="font-size:.75rem;font-weight:700;color:#546e7a;display:block;margin-bottom:.3rem">Predikat:</span>
+                <select id="rf-calistung-grade" style="width:100%;padding:.6rem;border-radius:10px;border:2px solid #CFD8DC;font-weight:800;color:#1A237E">
+                  <option value="A" ${savedRaport.calistungGrade === 'A' ? 'selected' : ''}>A (Sangat Baik)</option>
+                  <option value="B" ${savedRaport.calistungGrade === 'B' ? 'selected' : ''}>B (Baik)</option>
+                  <option value="C" ${savedRaport.calistungGrade === 'C' ? 'selected' : ''}>C (Cukup)</option>
+                  <option value="D" ${savedRaport.calistungGrade === 'D' ? 'selected' : ''}>D (Murojaah)</option>
+                </select>
+              </div>
+              <div>
+                <span style="font-size:.75rem;font-weight:700;color:#546e7a;display:block;margin-bottom:.3rem">Catatan Membaca / Berhitung:</span>
+                <input type="text" id="rf-calistung-note" value="${savedRaport.calistungNote || ''}" placeholder="Catatan calistung..." style="width:100%;padding:.6rem 1rem;border-radius:10px;border:2px solid #CFD8DC;font-weight:600">
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Fiqih & Ibadah -->
+          <div style="background:#F8FAFB;border:1px solid #CFD8DC;border-radius:14px;padding:1.2rem">
+            <label style="font-weight:800;font-size:.88rem;color:#1A237E;display:block;margin-bottom:.5rem">🕌 3. Nilai Fiqih & Praktik Ibadah (Wudhu & Sholat)</label>
+            <div style="display:grid;grid-template-columns:140px 1fr;gap:1rem;align-items:center">
+              <div>
+                <span style="font-size:.75rem;font-weight:700;color:#546e7a;display:block;margin-bottom:.3rem">Predikat:</span>
+                <select id="rf-fiqih-grade" style="width:100%;padding:.6rem;border-radius:10px;border:2px solid #CFD8DC;font-weight:800;color:#1A237E">
+                  <option value="A" ${savedRaport.fiqihGrade === 'A' ? 'selected' : ''}>A (Sangat Baik)</option>
+                  <option value="B" ${savedRaport.fiqihGrade === 'B' ? 'selected' : ''}>B (Baik)</option>
+                  <option value="C" ${savedRaport.fiqihGrade === 'C' ? 'selected' : ''}>C (Cukup)</option>
+                  <option value="D" ${savedRaport.fiqihGrade === 'D' ? 'selected' : ''}>D (Murojaah)</option>
+                </select>
+              </div>
+              <div>
+                <span style="font-size:.75rem;font-weight:700;color:#546e7a;display:block;margin-bottom:.3rem">Catatan Ketertiban Ibadah:</span>
+                <input type="text" id="rf-fiqih-note" value="${savedRaport.fiqihNote || ''}" placeholder="Catatan fiqih..." style="width:100%;padding:.6rem 1rem;border-radius:10px;border:2px solid #CFD8DC;font-weight:600">
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Hafalan Surat Pendek & Doa -->
+          <div style="background:#F8FAFB;border:1px solid #CFD8DC;border-radius:14px;padding:1.2rem">
+            <label style="font-weight:800;font-size:.88rem;color:#1A237E;display:block;margin-bottom:.5rem">🎵 4. Nilai Hafalan Surat Pendek & Doa Harian</label>
+            <div style="display:grid;grid-template-columns:140px 1fr;gap:1rem;align-items:center">
+              <div>
+                <span style="font-size:.75rem;font-weight:700;color:#546e7a;display:block;margin-bottom:.3rem">Predikat:</span>
+                <select id="rf-hafalan-grade" style="width:100%;padding:.6rem;border-radius:10px;border:2px solid #CFD8DC;font-weight:800;color:#1A237E">
+                  <option value="A" ${savedRaport.hafalanGrade === 'A' ? 'selected' : ''}>A (Sangat Baik)</option>
+                  <option value="B" ${savedRaport.hafalanGrade === 'B' ? 'selected' : ''}>B (Baik)</option>
+                  <option value="C" ${savedRaport.hafalanGrade === 'C' ? 'selected' : ''}>C (Cukup)</option>
+                  <option value="D" ${savedRaport.hafalanGrade === 'D' ? 'selected' : ''}>D (Murojaah)</option>
+                </select>
+              </div>
+              <div>
+                <span style="font-size:.75rem;font-weight:700;color:#546e7a;display:block;margin-bottom:.3rem">Catatan Kelancaran Hafalan:</span>
+                <input type="text" id="rf-hafalan-note" value="${savedRaport.hafalanNote || ''}" placeholder="Catatan hafalan..." style="width:100%;padding:.6rem 1rem;border-radius:10px;border:2px solid #CFD8DC;font-weight:600">
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Catatan Akhlak & Karakter -->
+          <div style="background:#F8FAFB;border:1px solid #CFD8DC;border-radius:14px;padding:1.2rem">
+            <label style="font-weight:800;font-size:.88rem;color:#1A237E;display:block;margin-bottom:.5rem">🌟 5. Catatan Perkembangan Akhlak & Karakter Santri</label>
+            <textarea id="rf-karakter-note" rows="3" placeholder="Pesan Ustadz/Ustadzah untuk perkembangan karakter & adab santri..." style="width:100%;padding:.8rem 1rem;border-radius:10px;border:2px solid #CFD8DC;font-weight:600;line-height:1.5">${savedRaport.karakterNote || ''}</textarea>
+          </div>
+
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display:flex;gap:1rem;margin-top:1.8rem;flex-wrap:wrap">
+          <button onclick="app.simpanRaportTriwulan()" style="flex:1;min-width:180px;background:linear-gradient(135deg,#00C896,#00BCD4);color:white;border:none;padding:.9rem 1.5rem;border-radius:30px;font-weight:800;cursor:pointer;font-size:.9rem;box-shadow:0 6px 15px rgba(0,200,150,.3);display:inline-flex;align-items:center;justify-content:center;gap:.4rem">
+            💾 Simpan Raport Triwulan ${tId}
+          </button>
+          <button onclick="app.cetakRaportTriwulanAktif()" style="flex:1;min-width:180px;background:linear-gradient(135deg,#FF6B35,#FF4081);color:white;border:none;padding:.9rem 1.5rem;border-radius:30px;font-weight:800;cursor:pointer;font-size:.9rem;box-shadow:0 6px 15px rgba(255,107,53,.3);display:inline-flex;align-items:center;justify-content:center;gap:.4rem">
+            🖨️ Cetak / Unduh PDF Raport Triwulan ${tId}
+          </button>
+        </div>
+
+      </div>
+    `;
+
+    progressContent.innerHTML = html;
   },
 
   // === JINGLE AUDIO PLAYER & LYRICS ===

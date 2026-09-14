@@ -685,6 +685,169 @@ const pdfGenerator = {
     doc.text(`Adik-adik, mari gambarkan atau warnai gambar sesuai tema "${bulan.tema}" di kotak ini!`, 105, 140, { align: "center", maxWidth: 150 });
   },
   
+  cetakRaportTriwulan(namaSantri, triwulanId, dataRaport) {
+    if (!window.jspdf) {
+      alert("Library jsPDF belum siap.");
+      return;
+    }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4"
+    });
+
+    const triwulanNames = {
+      1: "TRIWULAN 1 (BULAN 1 - 3)",
+      2: "TRIWULAN 2 (BULAN 4 - 6)",
+      3: "TRIWULAN 3 (BULAN 7 - 9)",
+      4: "TRIWULAN 4 (BULAN 10 - 12)"
+    };
+    
+    const triwulanScope = {
+      1: "Alif-Zai • Huruf A-O & Angka 1-15 • Syahadat & Wudhu • An-Nas, Al-Falaq, Al-Ikhlas",
+      2: "Sin-Lam & Harakat • Huruf J-V & Penjumlahan • Gerakan Sholat • Al-Lahab, An-Nashr, Al-Kafirun",
+      3: "Mim-Ya & Tanwin • 2 Suku Kata & Pengurangan/Perkalian • Sholat 5 Waktu • Al-Kautsar, Al-Maun, Al-Quraisy",
+      4: "Tajwid & Iqra 6 • Kalimat Story & Soal Cerita SD • Adab Harian • Al-Fil, Al-Humazah, Al-Ashr"
+    };
+
+    // Header Logo & Title
+    doc.setFillColor(26, 35, 126);
+    doc.rect(0, 0, 210, 32, "F");
+    
+    doc.setFont("Poppins", "bold");
+    doc.setFontSize(16);
+    doc.setTextColor(255, 214, 0);
+    doc.text("TPQ PLUS BINTANG RABBANI", 105, 12, { align: "center" });
+    
+    doc.setFontSize(10);
+    doc.setTextColor(255, 255, 255);
+    doc.text("LAPORAN HASIL BELAJAR SANTRI (E-RAPORT PERIODE 3 BULANAN)", 105, 20, { align: "center" });
+    doc.setFontSize(8.5);
+    doc.text(triwulanNames[triwulanId] || `TRIWULAN ${triwulanId}`, 105, 26, { align: "center" });
+
+    // Santri Info Box
+    let y = 40;
+    doc.setDrawColor(41, 182, 246);
+    doc.setLineWidth(0.8);
+    doc.setFillColor(248, 250, 251);
+    doc.rect(15, y, 180, 24, "FD");
+    
+    doc.setFont("Poppins", "bold");
+    doc.setFontSize(9.5);
+    doc.setTextColor(26, 35, 126);
+    doc.text(`Nama Santri    : ${namaSantri.toUpperCase()}`, 20, y + 8);
+    doc.text(`Periode Belajar : ${triwulanNames[triwulanId]}`, 20, y + 15);
+    doc.text(`Tanggal Cetak : ${new Date().toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}`, 120, y + 8);
+    doc.text(`Cakupan Materi : ${triwulanScope[triwulanId] || ''}`, 20, y + 21);
+
+    // Rubrik Table Header
+    y += 32;
+    doc.setFillColor(26, 35, 126);
+    doc.rect(15, y, 180, 10, "F");
+    
+    doc.setFont("Poppins", "bold");
+    doc.setFontSize(9.5);
+    doc.setTextColor(255, 255, 255);
+    doc.text("No", 20, y + 7);
+    doc.text("Aspek Capaian Pembelajaran", 32, y + 7);
+    doc.text("Nilai", 122, y + 7);
+    doc.text("Catatan & Evaluasi Pengajar", 142, y + 7);
+
+    // Items
+    const items = [
+      { no: "1", title: "Tahsin & Al-Qur'an (Hijaiyah / Iqra)", grade: dataRaport.tahsinGrade || "A", note: dataRaport.tahsinNote || "" },
+      { no: "2", title: "Calistung & Kognitif (Membaca & Hitung)", grade: dataRaport.calistungGrade || "A", note: dataRaport.calistungNote || "" },
+      { no: "3", title: "Fiqih & Praktik Ibadah (Wudhu & Sholat)", grade: dataRaport.fiqihGrade || "A", note: dataRaport.fiqihNote || "" },
+      { no: "4", title: "Hafalan Surat Pendek & Doa Harian", grade: dataRaport.hafalanGrade || "A", note: dataRaport.hafalanNote || "" }
+    ];
+
+    y += 10;
+
+    items.forEach((item, i) => {
+      const bg = i % 2 === 0 ? [255, 255, 255] : [245, 247, 250];
+      doc.setFillColor(bg[0], bg[1], bg[2]);
+      doc.rect(15, y, 180, 18, "F");
+      doc.setDrawColor(220, 224, 230);
+      doc.rect(15, y, 180, 18);
+      
+      doc.setFont("Poppins", "bold");
+      doc.setFontSize(9);
+      doc.setTextColor(26, 35, 126);
+      doc.text(item.no, 20, y + 10);
+      doc.text(item.title, 32, y + 10);
+      
+      // Grade Box
+      const g = item.grade;
+      const gradeColor = g === 'A' ? [0, 200, 150] : g === 'B' ? [41, 182, 246] : g === 'C' ? [255, 214, 0] : [255, 107, 53];
+      doc.setFillColor(gradeColor[0], gradeColor[1], gradeColor[2]);
+      doc.rect(122, y + 4, 12, 10, "F");
+      doc.setFont("Poppins", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(255, 255, 255);
+      doc.text(g, 128, y + 11, { align: "center" });
+      
+      doc.setFont("Nunito", "normal");
+      doc.setFontSize(8.5);
+      doc.setTextColor(50, 50, 50);
+      const splitNotes = doc.splitTextToSize(item.note || '-', 48);
+      doc.text(splitNotes, 142, y + 8);
+      
+      y += 18;
+    });
+
+    // Character Notes Box
+    y += 6;
+    doc.setFont("Poppins", "bold");
+    doc.setFontSize(9.5);
+    doc.setTextColor(26, 35, 126);
+    doc.text("Catatan Perkembangan Karakter & Akhlak Santri:", 15, y);
+
+    y += 4;
+    doc.setFillColor(255, 253, 231);
+    doc.rect(15, y, 180, 22, "F");
+    doc.setDrawColor(255, 214, 0);
+    doc.rect(15, y, 180, 22);
+
+    doc.setFont("Nunito", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(40, 40, 40);
+    const karakterLines = doc.splitTextToSize(dataRaport.karakterNote || "Santri sangat rajin, berakhlak mulia, dan aktif mengikuti seluruh rangkaian belajar.", 170);
+    doc.text(karakterLines, 20, y + 8);
+
+    // Keterangan Predikat
+    y += 28;
+    doc.setFont("Nunito", "italic");
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text("Keterangan Predikat: A = Sangat Baik (Mumtaz)  |  B = Baik (Jayyid)  |  C = Cukup  |  D = Perlu Bimbingan (Murojaah)", 15, y);
+
+    // Signature Area
+    y += 15;
+    doc.setFont("Poppins", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(26, 35, 126);
+    doc.text("Orang Tua / Wali Santri", 40, y, { align: "center" });
+    doc.text("Ustadz / Ustadzah Pengajar", 160, y, { align: "center" });
+
+    doc.setFont("Nunito", "normal");
+    doc.text("( .................................... )", 40, y + 20, { align: "center" });
+    doc.text("( TPQ Plus Bintang Rabbani )", 160, y + 20, { align: "center" });
+
+    // Footer Warning
+    doc.setDrawColor(200, 200, 200);
+    doc.setLineWidth(0.5);
+    doc.line(15, 280, 195, 280);
+    doc.setFont("Nunito", "bold");
+    doc.setFontSize(7.5);
+    doc.setTextColor(180, 0, 0);
+    doc.text("dilarang mengcopy, memperbanyak dan menggunakan dokumen ini tanpa seizin dari TPQ Plus Bintang Rabbani.", 105, 286, { align: "center" });
+
+    // Save File
+    const filename = `Raport_Triwulan${triwulanId}_${namaSantri.replace(/\s+/g, '_')}_Bintang_Rabbani.pdf`;
+    doc.save(filename);
+  },
+
   addRaportPage(doc, bulanNomor) {
     doc.addPage();
     this.drawPageHeader(doc, `Bulan ${bulanNomor}`, "LEMBAR PENILAIAN & RAPORT BULANAN");
